@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://src/Actor/Player.gd" type="Script" id=1]
 [ext_resource path="res://src/Item/Gun_sniper.tscn" type="PackedScene" id=2]
@@ -9,7 +9,22 @@
 extents = Vector2( 17.1831, 31.0732 )
 
 [sub_resource type="Animation" id=2]
-resource_name = "jump"
+resource_name = "hurt"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath("Player/sprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 0.352941, 0.352941, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=3]
 length = 0.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("smoke_jump:scale")
@@ -40,6 +55,7 @@ tracks/1/keys = {
 script = ExtResource( 1 )
 
 [node name="Player" type="KinematicBody2D" parent="."]
+position = Vector2( 228.216, 171.162 )
 collision_mask = 6
 
 [node name="sprite" type="Sprite" parent="Player"]
@@ -51,7 +67,6 @@ position = Vector2( 0, -31.1928 )
 shape = SubResource( 1 )
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
-current = true
 zoom = Vector2( 0.8, 0.8 )
 limit_left = -100
 limit_top = -100
@@ -76,11 +91,21 @@ rotation = -1.5708
 
 [node name="Gun_second" parent="Player/GunPosition/Gun_second" instance=ExtResource( 2 )]
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/jump = SubResource( 2 )
+[node name="BulletDetect" type="Area2D" parent="Player"]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Player/BulletDetect"]
+position = Vector2( 0, -31.1928 )
+shape = SubResource( 1 )
 
 [node name="smoke_jump" type="Sprite" parent="."]
 modulate = Color( 1, 1, 1, 0 )
 position = Vector2( 0, 10.3009 )
 scale = Vector2( 0.5, 0.4 )
 texture = ExtResource( 3 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/hurt = SubResource( 2 )
+anims/jump = SubResource( 3 )
+[connection signal="body_entered" from="Player/BulletDetect" to="." method="_on_BulletDetect_body_entered"]

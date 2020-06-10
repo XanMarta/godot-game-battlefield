@@ -1,8 +1,8 @@
 extends Node2D
 
 export (PackedScene) var bullet
-export var recoil = 50
-
+export var recoil = 1000
+export var damage = 5000
 
 var velocity = Vector2.ZERO
 var is_firing = true

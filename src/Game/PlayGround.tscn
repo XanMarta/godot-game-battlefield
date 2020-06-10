@@ -7,12 +7,11 @@
 [node name="PlayGround" type="Node2D"]
 
 [node name="Background" parent="." instance=ExtResource( 1 )]
+position = Vector2( 0, 80 )
 
 [node name="Map" parent="." instance=ExtResource( 2 )]
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
-position = Vector2( 90.5263, 129.474 )
 
 [node name="Player2" parent="." instance=ExtResource( 3 )]
-position = Vector2( 896.399, 226.039 )
 type = "p2"

@@ -5,12 +5,14 @@ export var speed = Vector2(200, 350)
 export var gravity = 1000
 export var jump_power = 2
 export var type = "p1"
+export var recoil_force = 3.5
 
 
 onready var player = $Player
 var velocity = Vector2.ZERO
 var jump = jump_power
 var direct = 1.0
+var force = Vector2(0, 0)
 
 
 func _ready():
@@ -40,6 +42,11 @@ func move_control():
 		$Player/GunPosition.rotation = 0
 		$Player/GunPosition/Gun_second.rotation = -PI / 2
 		direct = 1.0
+		
+	if $Player/GunPosition/Gun_hand.get_child_count() > 0:
+		$Player/GunPosition/Gun_hand.get_child(0).get_node("sprite").flip_v = true if direct == -1.0 else false
+	if $Player/GunPosition/Gun_second.get_child_count() > 0:
+		$Player/GunPosition/Gun_second.get_child(0).get_node("sprite").flip_v = true if direct == -1.0 else false
 	
 	velocity.x = direction * speed.x
 	velocity.y += gravity * get_physics_process_delta_time()
@@ -52,8 +59,13 @@ func move_control():
 			jump -= 1
 			velocity.y = -speed.y
 			$smoke_jump.global_position = player.global_position
-			$AnimationPlayer.stop()
+			$AnimationPlayer.stop(true)
 			$AnimationPlayer.play("jump")
+	
+	# Calculate force
+	var add_force = force / recoil_force
+	force -= add_force
+	velocity += add_force
 	
 	velocity = player.move_and_slide(velocity, Vector2.UP)
 	
@@ -72,7 +84,9 @@ func fire():
 			var bullet = gun.get_bullet().instance()
 			add_child(bullet)
 			bullet.global_position = gun.get_node("Fire_position").global_position
-			bullet.fire(direct)
+			bullet.fire(direct, gun.damage)
+			# Recoil
+			force += Vector2(-gun.recoil * direct, 0)
 
 func change():
 	var gun_hand = null
@@ -91,3 +105,10 @@ func change():
 func drop():
 	if $Player/GunPosition/Gun_hand.get_child_count() > 0:
 		$Player/GunPosition/Gun_hand.get_child(0).queue_free()
+
+
+func _on_BulletDetect_body_entered(bullet):
+	bullet.queue_free()
+	$AnimationPlayer.stop(true)
+	$AnimationPlayer.play("hurt")
+	force += Vector2(bullet.damage * bullet.direction, 0)
