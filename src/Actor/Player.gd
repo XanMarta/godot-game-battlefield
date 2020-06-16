@@ -3,9 +3,10 @@ extends Node2D
 
 export var speed = Vector2(200, 350)
 export var gravity = 1000
+export var max_fall = 900
 export var jump_power = 2
 export var type = "p1"
-export var recoil_force = 3.5
+export var recoil_force = 4.0
 
 
 onready var player = $Player
@@ -13,40 +14,32 @@ var velocity = Vector2.ZERO
 var jump = jump_power
 var direct = 1.0
 var force = Vector2(0, 0)
+var is_alive = false
 
 
 func _ready():
 	$Player/sprite.texture = load("res://Assets/" + type + ".png")
+	spawn()
 
 
 func _physics_process(delta):
-	move_control()
-	if Input.is_action_pressed(type + "_fire"):
-		fire()
-	if Input.is_action_just_pressed(type + "_change"):
-		change()
-	if Input.is_action_just_pressed(type + "_drop"):
-		drop()
+	if is_alive:
+		move_control()
+		if Input.is_action_pressed(type + "_fire"):
+			fire()
+		if Input.is_action_just_pressed(type + "_change"):
+			change()
+		if Input.is_action_just_pressed(type + "_drop"):
+			drop()
 
 
 
 func move_control():
 	var direction = Input.get_action_strength(type + "_right") - Input.get_action_strength(type + "_left")
 	if direction < 0.0:
-		$Player/sprite.flip_h = true
-		$Player/GunPosition.rotation = PI
-		$Player/GunPosition/Gun_second.rotation = PI / 2
-		direct = -1.0
+		turn(false)
 	elif direction > 0.0:
-		$Player/sprite.flip_h = false
-		$Player/GunPosition.rotation = 0
-		$Player/GunPosition/Gun_second.rotation = -PI / 2
-		direct = 1.0
-		
-	if $Player/GunPosition/Gun_hand.get_child_count() > 0:
-		$Player/GunPosition/Gun_hand.get_child(0).get_node("sprite").flip_v = true if direct == -1.0 else false
-	if $Player/GunPosition/Gun_second.get_child_count() > 0:
-		$Player/GunPosition/Gun_second.get_child(0).get_node("sprite").flip_v = true if direct == -1.0 else false
+		turn(true)
 	
 	velocity.x = direction * speed.x
 	velocity.y += gravity * get_physics_process_delta_time()
@@ -67,6 +60,7 @@ func move_control():
 	force -= add_force
 	velocity += add_force
 	
+	velocity.y = clamp(velocity.y, -max_fall, max_fall)
 	velocity = player.move_and_slide(velocity, Vector2.UP)
 	
 	if Input.is_action_just_pressed(type + "_down"):
@@ -77,6 +71,24 @@ func move_control():
 			player.set_collision_mask_bit(1, true)
 
 
+func turn(right : bool):
+	if right:
+		$Player/sprite.flip_h = false
+		$Player/GunPosition.rotation = 0
+		$Player/GunPosition/Gun_second.rotation = -PI / 2
+		direct = 1.0
+	else:
+		$Player/sprite.flip_h = true
+		$Player/GunPosition.rotation = PI
+		$Player/GunPosition/Gun_second.rotation = PI / 2
+		direct = -1.0
+		
+	if $Player/GunPosition/Gun_hand.get_child_count() > 0:
+		$Player/GunPosition/Gun_hand.get_child(0).get_node("sprite").flip_v = true if direct == -1.0 else false
+	if $Player/GunPosition/Gun_second.get_child_count() > 0:
+		$Player/GunPosition/Gun_second.get_child(0).get_node("sprite").flip_v = true if direct == -1.0 else false
+
+
 func fire():
 	if $Player/GunPosition/Gun_hand.get_child_count() > 0:
 		var gun = $Player/GunPosition/Gun_hand.get_child(0)
@@ -85,6 +97,7 @@ func fire():
 			add_child(bullet)
 			bullet.global_position = gun.get_node("Fire_position").global_position
 			bullet.fire(direct, gun.damage)
+			print("Fire with direct: ", direct)
 			# Recoil
 			force += Vector2(-gun.recoil * direct, 0)
 
@@ -107,8 +120,24 @@ func drop():
 		$Player/GunPosition/Gun_hand.get_child(0).queue_free()
 
 
+func spawn():
+	$SpawnPath/PathFollow2D.unit_offset = randf()
+	$Player.global_position = $SpawnPath/PathFollow2D.global_position
+	velocity = Vector2.ZERO
+	jump = jump_power
+	turn(true)
+	force = Vector2.ZERO
+	is_alive = true
+
 func _on_BulletDetect_body_entered(bullet):
 	bullet.queue_free()
 	$AnimationPlayer.stop(true)
 	$AnimationPlayer.play("hurt")
 	force += Vector2(bullet.damage * bullet.direction, 0)
+
+
+func _on_DeadzoneDetect_body_entered(body):
+	print("dead")
+	is_alive = false
+	yield(get_tree().create_timer(2.0), "timeout")
+	spawn()

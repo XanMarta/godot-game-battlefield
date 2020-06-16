@@ -107,6 +107,7 @@ p2_drop={
 2d_physics/layer_2="block"
 2d_physics/layer_3="block_full"
 2d_physics/layer_4="bullet"
+2d_physics/layer_5="deadzone"
 
 [rendering]
 

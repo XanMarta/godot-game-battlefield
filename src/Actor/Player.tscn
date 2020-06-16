@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://src/Actor/Player.gd" type="Script" id=1]
 [ext_resource path="res://src/Item/Gun_sniper.tscn" type="PackedScene" id=2]
@@ -8,8 +8,12 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 17.1831, 31.0732 )
 
-[sub_resource type="Animation" id=2]
-resource_name = "hurt"
+[sub_resource type="Curve2D" id=2]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 149.524, -633.83, 0, 0, 0, 0, 898.458, -629.683 )
+}
+
+[sub_resource type="Animation" id=3]
 length = 0.4
 tracks/0/type = "value"
 tracks/0/path = NodePath("Player/sprite:modulate")
@@ -24,7 +28,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 0.352941, 0.352941, 1 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=4]
 length = 0.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("smoke_jump:scale")
@@ -66,17 +70,6 @@ scale = Vector2( 0.25, 0.25 )
 position = Vector2( 0, -31.1928 )
 shape = SubResource( 1 )
 
-[node name="Camera2D" type="Camera2D" parent="Player"]
-zoom = Vector2( 0.8, 0.8 )
-limit_left = -100
-limit_top = -100
-limit_right = 1124
-limit_bottom = 700
-smoothing_enabled = true
-smoothing_speed = 1.5
-drag_margin_top = 0.4
-drag_margin_bottom = 0.4
-
 [node name="GunPosition" type="Position2D" parent="Player"]
 position = Vector2( 0, -27.5439 )
 
@@ -99,13 +92,29 @@ collision_mask = 8
 position = Vector2( 0, -31.1928 )
 shape = SubResource( 1 )
 
+[node name="DeadzoneDetect" type="Area2D" parent="Player"]
+collision_layer = 0
+collision_mask = 16
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Player/DeadzoneDetect"]
+position = Vector2( 0, -31.1928 )
+shape = SubResource( 1 )
+
 [node name="smoke_jump" type="Sprite" parent="."]
 modulate = Color( 1, 1, 1, 0 )
 position = Vector2( 0, 10.3009 )
 scale = Vector2( 0.5, 0.4 )
 texture = ExtResource( 3 )
 
+[node name="SpawnPath" type="Path2D" parent="."]
+curve = SubResource( 2 )
+
+[node name="PathFollow2D" type="PathFollow2D" parent="SpawnPath"]
+position = Vector2( 149.524, -633.83 )
+rotation = 0.00557394
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/hurt = SubResource( 2 )
-anims/jump = SubResource( 3 )
+anims/hurt = SubResource( 3 )
+anims/jump = SubResource( 4 )
 [connection signal="body_entered" from="Player/BulletDetect" to="." method="_on_BulletDetect_body_entered"]
+[connection signal="body_entered" from="Player/DeadzoneDetect" to="." method="_on_DeadzoneDetect_body_entered"]

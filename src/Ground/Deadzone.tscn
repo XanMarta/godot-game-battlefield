@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 20, 1192.99 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 1428.37, 20 )
+
+[node name="Deadzone" type="StaticBody2D"]
+collision_layer = 16
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -896.248, 179.383 )
+shape = SubResource( 1 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2( 1898.73, 179.383 )
+shape = SubResource( 1 )
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="."]
+position = Vector2( 512, -1000 )
+shape = SubResource( 2 )
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="."]
+position = Vector2( 512, 1365.92 )
+shape = SubResource( 2 )

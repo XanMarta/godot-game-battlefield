@@ -20,7 +20,7 @@ shape = SubResource( 1 )
 
 [node name="Block_detect" type="Area2D" parent="."]
 collision_layer = 0
-collision_mask = 4
+collision_mask = 20
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Block_detect"]
 shape = SubResource( 1 )
