@@ -6,15 +6,20 @@ export var gravity = 1000
 export var max_fall = 900
 export var jump_power = 2
 export var type = "p1"
-export var recoil_force = 4.0
+export var recoil_force = 5.0
+
+export var health = 100 setget set_health
 
 
-onready var player = $Player
 var velocity = Vector2.ZERO
 var jump = jump_power
 var direct = 1.0
 var force = Vector2(0, 0)
 var is_alive = false
+
+onready var player = $Player
+onready var gun_hand = $Player/GunPosition/Gun_hand
+onready var gun_second = $Player/GunPosition/Gun_second
 
 
 func _ready():
@@ -75,49 +80,48 @@ func turn(right : bool):
 	if right:
 		$Player/sprite.flip_h = false
 		$Player/GunPosition.rotation = 0
-		$Player/GunPosition/Gun_second.rotation = -PI / 2
+		gun_second.rotation = -PI / 2
 		direct = 1.0
 	else:
 		$Player/sprite.flip_h = true
 		$Player/GunPosition.rotation = PI
-		$Player/GunPosition/Gun_second.rotation = PI / 2
+		gun_second.rotation = PI / 2
 		direct = -1.0
 		
-	if $Player/GunPosition/Gun_hand.get_child_count() > 0:
-		$Player/GunPosition/Gun_hand.get_child(0).get_node("sprite").flip_v = true if direct == -1.0 else false
-	if $Player/GunPosition/Gun_second.get_child_count() > 0:
-		$Player/GunPosition/Gun_second.get_child(0).get_node("sprite").flip_v = true if direct == -1.0 else false
+	if gun_hand.get_child_count() > 0:
+		gun_hand.get_child(0).get_node("sprite").flip_v = true if direct == -1.0 else false
+	if gun_second.get_child_count() > 0:
+		gun_second.get_child(0).get_node("sprite").flip_v = true if direct == -1.0 else false
 
 
 func fire():
-	if $Player/GunPosition/Gun_hand.get_child_count() > 0:
-		var gun = $Player/GunPosition/Gun_hand.get_child(0)
+	if gun_hand.get_child_count() > 0:
+		var gun = gun_hand.get_child(0)
 		if gun.fire():
 			var bullet = gun.get_bullet().instance()
 			add_child(bullet)
 			bullet.global_position = gun.get_node("Fire_position").global_position
 			bullet.fire(direct, gun.damage)
-			print("Fire with direct: ", direct)
 			# Recoil
 			force += Vector2(-gun.recoil * direct, 0)
 
 func change():
-	var gun_hand = null
-	var gun_second = null
-	if $Player/GunPosition/Gun_hand.get_child_count() > 0:
-		gun_hand = $Player/GunPosition/Gun_hand.get_child(0)
-		$Player/GunPosition/Gun_hand.remove_child(gun_hand)
-	if $Player/GunPosition/Gun_second.get_child_count() > 0:
-		gun_second = $Player/GunPosition/Gun_second.get_child(0)
-		$Player/GunPosition/Gun_second.remove_child(gun_second)
-	if gun_hand != null:
-		$Player/GunPosition/Gun_second.add_child(gun_hand)
-	if gun_second != null:
-		$Player/GunPosition/Gun_hand.add_child(gun_second)
+	var old_gun_hand = null
+	var old_gun_second = null
+	if gun_hand.get_child_count() > 0:
+		old_gun_hand = gun_hand.get_child(0)
+		gun_hand.remove_child(old_gun_hand)
+	if gun_second.get_child_count() > 0:
+		old_gun_second = gun_second.get_child(0)
+		gun_second.remove_child(old_gun_second)
+	if old_gun_hand != null:
+		gun_second.add_child(old_gun_hand)
+	if old_gun_second != null:
+		gun_hand.add_child(old_gun_second)
 
 func drop():
-	if $Player/GunPosition/Gun_hand.get_child_count() > 0:
-		$Player/GunPosition/Gun_hand.get_child(0).queue_free()
+	if gun_hand.get_child_count() > 0:
+		gun_hand.get_child(0).queue_free()
 
 
 func spawn():
@@ -128,16 +132,34 @@ func spawn():
 	turn(true)
 	force = Vector2.ZERO
 	is_alive = true
+	self.health = 100
+	$AnimationPlayer.play("spawn")
 
 func _on_BulletDetect_body_entered(bullet):
-	bullet.queue_free()
 	$AnimationPlayer.stop(true)
 	$AnimationPlayer.play("hurt")
 	force += Vector2(bullet.damage * bullet.direction, 0)
+	self.health -= bullet.damage / 1000
+	print("health: ", health)
+	bullet.queue_free()
+	if health <= 0.0:
+		die()
+
+
+func die():
+	print("dead")
+	is_alive = false
+	$AnimationPlayer.play("dead")
+	$Player/BulletDetect.set_deferred("monitoring", false)
+	yield($AnimationPlayer, "animation_finished")
+	$Player/BulletDetect.set_deferred("monitoring", true)
+	spawn()
+
+
+func set_health(value):
+	health = value
+	$Player/HealthBar.value = health
 
 
 func _on_DeadzoneDetect_body_entered(body):
-	print("dead")
-	is_alive = false
-	yield(get_tree().create_timer(2.0), "timeout")
-	spawn()
+	die()

@@ -3,11 +3,15 @@ extends Node2D
 
 export (PackedScene) var bullet
 export var recoil = 200
-export var damage = 500
+export var damage = 1000
+export var fire_wait = 0.15
+
 
 var velocity = Vector2.ZERO
 var is_firing = true
 
+func _ready():
+	$Fire_rate.wait_time = fire_wait
 
 
 func get_bullet() -> PackedScene:
