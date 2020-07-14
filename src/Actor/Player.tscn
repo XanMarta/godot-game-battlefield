@@ -16,7 +16,7 @@ _data = {
 "points": PoolVector2Array( 0, 0, 0, 0, 149.524, -633.83, 0, 0, 0, 0, 898.458, -629.683 )
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=3]
 resource_name = "dead"
 length = 2.0
 tracks/0/type = "value"
@@ -68,7 +68,7 @@ tracks/3/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=4]
 length = 0.4
 tracks/0/type = "value"
 tracks/0/path = NodePath("Player/sprite:modulate")
@@ -83,7 +83,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 0.352941, 0.352941, 1 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=5]
 length = 0.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("smoke_jump:scale")
@@ -170,7 +170,6 @@ collision_mask = 6
 
 [node name="sprite" type="Sprite" parent="Player"]
 position = Vector2( 0, -31.1928 )
-scale = Vector2( 0.25, 0.25 )
 texture = ExtResource( 7 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
@@ -239,9 +238,9 @@ position = Vector2( 149.524, -633.83 )
 rotation = 0.00557394
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/dead = SubResource( 5 )
-anims/hurt = SubResource( 3 )
-anims/jump = SubResource( 4 )
+anims/dead = SubResource( 3 )
+anims/hurt = SubResource( 4 )
+anims/jump = SubResource( 5 )
 anims/spawn = SubResource( 6 )
 [connection signal="body_entered" from="Player/BulletDetect" to="." method="_on_BulletDetect_body_entered"]
 [connection signal="body_entered" from="Player/DeadzoneDetect" to="." method="_on_DeadzoneDetect_body_entered"]

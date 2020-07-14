@@ -24,6 +24,10 @@ config/name="Battlefield"
 run/main_scene="res://src/Game/PlayGround.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+GameData="*res://src/Autoload/GameData.tscn"
+
 [display]
 
 window/size/always_on_top=true

@@ -1,5 +1,7 @@
 extends Node2D
 
+signal update_gui
+
 
 export var speed = Vector2(200, 350)
 export var gravity = 1000
@@ -7,6 +9,7 @@ export var max_fall = 900
 export var jump_power = 2
 export var type = "p1"
 export var recoil_force = 5.0
+export var player_name = "Mark"
 
 export var health = 100 setget set_health
 
@@ -118,10 +121,12 @@ func change():
 		gun_second.add_child(old_gun_hand)
 	if old_gun_second != null:
 		gun_hand.add_child(old_gun_second)
+	emit_signal("update_gui")
 
 func drop():
 	if gun_hand.get_child_count() > 0:
 		gun_hand.get_child(0).queue_free()
+	emit_signal("update_gui")
 
 
 func spawn():
@@ -134,6 +139,7 @@ func spawn():
 	is_alive = true
 	self.health = 100
 	$AnimationPlayer.play("spawn")
+	$Player/HealthBar.visible = false
 
 func _on_BulletDetect_body_entered(bullet):
 	$AnimationPlayer.stop(true)
@@ -142,6 +148,7 @@ func _on_BulletDetect_body_entered(bullet):
 	self.health -= bullet.damage / 1000
 	print("health: ", health)
 	bullet.queue_free()
+	$Player/HealthBar.visible = true
 	if health <= 0.0:
 		die()
 
@@ -159,7 +166,6 @@ func die():
 func set_health(value):
 	health = value
 	$Player/HealthBar.value = health
-
 
 func _on_DeadzoneDetect_body_entered(body):
 	die()
