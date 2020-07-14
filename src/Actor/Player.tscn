@@ -1,7 +1,6 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://src/Actor/Player.gd" type="Script" id=1]
-[ext_resource path="res://src/Item/Gun_sniper.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Assets/smoke_jump.png" type="Texture" id=3]
 [ext_resource path="res://src/Item/Gun.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Assets/health_bar_red.png" type="Texture" id=5]
@@ -164,6 +163,7 @@ tracks/3/keys = {
 
 [node name="Player" type="Node2D"]
 script = ExtResource( 1 )
+gun = ExtResource( 4 )
 
 [node name="Player" type="KinematicBody2D" parent="."]
 collision_mask = 6
@@ -183,13 +183,9 @@ position = Vector2( 0, -27.5439 )
 [node name="Gun_hand" type="Position2D" parent="Player/GunPosition"]
 position = Vector2( 17.2032, 0 )
 
-[node name="Gun_hand" parent="Player/GunPosition/Gun_hand" instance=ExtResource( 4 )]
-
 [node name="Gun_second" type="Position2D" parent="Player/GunPosition"]
 position = Vector2( -17.231, 0 )
 rotation = -1.5708
-
-[node name="Gun_second" parent="Player/GunPosition/Gun_second" instance=ExtResource( 2 )]
 
 [node name="BulletDetect" type="Area2D" parent="Player"]
 visible = false

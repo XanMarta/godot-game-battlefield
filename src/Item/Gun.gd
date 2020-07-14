@@ -2,6 +2,7 @@ extends Node2D
 
 
 export (PackedScene) var bullet
+export var gun_name = "Gun"
 export var recoil = 200
 export var damage = 1000
 export var fire_wait = 0.15
@@ -10,7 +11,13 @@ export var fire_wait = 0.15
 var velocity = Vector2.ZERO
 var is_firing = true
 
-func _ready():
+
+func set_gun(gun):
+	$sprite.texture = gun["image"]
+	gun_name = gun["name"]
+	recoil = gun["recoil"]
+	damage = gun["damage"]
+	fire_wait = gun["fire_wait"]
 	$Fire_rate.wait_time = fire_wait
 
 

@@ -10,6 +10,7 @@ export var jump_power = 2
 export var type = "p1"
 export var recoil_force = 5.0
 export var player_name = "Mark"
+export (PackedScene) var gun
 
 export var health = 100 setget set_health
 
@@ -28,7 +29,8 @@ onready var gun_second = $Player/GunPosition/Gun_second
 func _ready():
 	$Player/sprite.texture = load("res://Assets/" + type + ".png")
 	spawn()
-
+	equip_gun(GameData.assault, true)
+	equip_gun(GameData.sniper, false)
 
 func _physics_process(delta):
 	if is_alive:
@@ -140,6 +142,14 @@ func spawn():
 	self.health = 100
 	$AnimationPlayer.play("spawn")
 	$Player/HealthBar.visible = false
+
+func equip_gun(gun_type, to_hand = true):
+	var to_target = gun_hand if to_hand else gun_second
+	if to_target.get_child_count() == 0:
+		var new_gun = gun.instance()
+		new_gun.set_gun(gun_type)
+		to_target.add_child(new_gun)
+
 
 func _on_BulletDetect_body_entered(bullet):
 	$AnimationPlayer.stop(true)
