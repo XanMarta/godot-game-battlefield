@@ -1,12 +1,28 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Assets/gun1.png" type="Texture" id=1]
 [ext_resource path="res://src/Item/Gun.gd" type="Script" id=2]
 [ext_resource path="res://src/Item/Bullet.tscn" type="PackedScene" id=3]
 
+[sub_resource type="Animation" id=1]
+resource_name = "fire"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("sprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 0.297302, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( -3.36555, 0 ), Vector2( 0, 0 ) ]
+}
+
 [node name="Gun" type="Node2D"]
 script = ExtResource( 2 )
-bullet = ExtResource( 3 )
+bullet_type = ExtResource( 3 )
 
 [node name="sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
@@ -17,4 +33,7 @@ position = Vector2( 25.3464, 0 )
 [node name="Fire_rate" type="Timer" parent="."]
 wait_time = 0.2
 one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/fire = SubResource( 1 )
 [connection signal="timeout" from="Fire_rate" to="." method="_on_Fire_rate_timeout"]

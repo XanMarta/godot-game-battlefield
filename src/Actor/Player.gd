@@ -21,9 +21,9 @@ onready var gun_second = $Player/GunPosition/Gun_second
 func _ready():
 	$Player/sprite.texture = load("res://Assets/" + type + ".png")
 	$Player.type = self.type
-	spawn()
 	equip_gun(GameData.assault, true)
 	equip_gun(GameData.sniper, false)
+	spawn()
 
 
 func _physics_process(delta):
@@ -47,6 +47,8 @@ func fire():
 			bullet.fire($Player.direct, gun.damage)
 			# Recoil
 			$Player.force += Vector2(-gun.recoil * $Player.direct, 0)
+			emit_signal("update_gui")
+
 
 func change():
 	var old_gun_hand = null
@@ -63,9 +65,10 @@ func change():
 		gun_hand.add_child(old_gun_second)
 	emit_signal("update_gui")
 
+
 func drop():
 	if gun_hand.get_child_count() > 0:
-		gun_hand.get_child(0).queue_free()
+		gun_hand.get_child(0).free()
 	emit_signal("update_gui")
 
 
@@ -81,6 +84,7 @@ func spawn():
 	$AnimationPlayer.play("spawn")
 	$Player/HealthBar.visible = false
 	emit_signal("update_gui")
+
 
 func equip_gun(gun_type, to_hand = true):
 	var to_target = gun_hand if to_hand else gun_second
@@ -106,6 +110,7 @@ func _on_BulletDetect_body_entered(bullet):
 func die():
 	print("dead")
 	is_alive = false
+	emit_signal("update_gui")
 	$AnimationPlayer.play("dead")
 	$Player/BulletDetect.set_deferred("monitoring", false)
 	yield($AnimationPlayer, "animation_finished")

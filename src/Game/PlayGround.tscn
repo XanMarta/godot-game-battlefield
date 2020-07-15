@@ -6,10 +6,9 @@
 [ext_resource path="res://src/Ground/Deadzone.tscn" type="PackedScene" id=4]
 [ext_resource path="res://src/GUI/PlayerTag.tscn" type="PackedScene" id=5]
 [ext_resource path="res://src/Game/Camera.gd" type="Script" id=6]
-[ext_resource path="res://src/Game/PlayGround.gd" type="Script" id=7]
+[ext_resource path="res://src/Game/Player_tag.gd" type="Script" id=8]
 
 [node name="PlayGround" type="Node2D"]
-script = ExtResource( 7 )
 
 [node name="Background" parent="." instance=ExtResource( 1 )]
 position = Vector2( 0, 80 )
@@ -40,11 +39,12 @@ limit_smoothed = true
 smoothing_enabled = true
 smoothing_speed = 2.0
 
-[node name="Player_tag" type="Node2D" parent="Camera"]
+[node name="Player_tag" type="Node2D" parent="."]
 modulate = Color( 1, 1, 1, 0.733333 )
+script = ExtResource( 8 )
 
-[node name="Player1" parent="Camera/Player_tag" instance=ExtResource( 5 )]
+[node name="Player1" parent="Player_tag" instance=ExtResource( 5 )]
 position = Vector2( -357.033, 291.714 )
 
-[node name="Player2" parent="Camera/Player_tag" instance=ExtResource( 5 )]
+[node name="Player2" parent="Player_tag" instance=ExtResource( 5 )]
 position = Vector2( 410.534, 291.714 )

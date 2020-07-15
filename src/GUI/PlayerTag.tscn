@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Assets/paper.png" type="Texture" id=1]
 [ext_resource path="res://Assets/health_bar_purple.png" type="Texture" id=2]
@@ -6,6 +6,46 @@
 [ext_resource path="res://src/GUI/PlayerTag.gd" type="Script" id=4]
 [ext_resource path="res://Assets/health_bar_green.png" type="Texture" id=5]
 [ext_resource path="res://Assets/health_bar_red.png" type="Texture" id=6]
+
+[sub_resource type="Animation" id=2]
+resource_name = "player_die"
+length = 2.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Player/player:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.8, 2, 2.5 ),
+"transitions": PoolRealArray( 0.517632, 2.2974, 1, 1, 0.517632 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, -10 ), Vector2( 0, 13 ), Vector2( 0, 13 ), Vector2( 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Player/player:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.8, 2, 2.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, -90.0, -90.0, 0.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Player/player:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.8, 2, 2.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 0.7, 0.7 ), Vector2( 0.7, 0.7 ), Vector2( 1, 1 ) ]
+}
 
 [node name="PlayerTag" type="Node2D"]
 script = ExtResource( 4 )
@@ -16,12 +56,12 @@ scale = Vector2( 0.289659, 0.289659 )
 texture = ExtResource( 1 )
 
 [node name="Player" type="Position2D" parent="."]
-position = Vector2( -37.2822, -69.5578 )
+position = Vector2( -33.4997, -78.7438 )
 
 [node name="player" type="Sprite" parent="Player"]
 
 [node name="Gunhand" type="Position2D" parent="."]
-position = Vector2( 16.8847, -109.211 )
+position = Vector2( 20.6672, -110.292 )
 
 [node name="gun" type="Sprite" parent="Gunhand"]
 
@@ -40,7 +80,8 @@ __meta__ = {
 }
 
 [node name="Gunsecond" type="Position2D" parent="."]
-position = Vector2( 16.8847, -69.5578 )
+position = Vector2( 14.7091, -71.1789 )
+scale = Vector2( 0.8, 0.8 )
 
 [node name="gun" type="Sprite" parent="Gunsecond"]
 
@@ -80,3 +121,6 @@ valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/player_die = SubResource( 2 )
