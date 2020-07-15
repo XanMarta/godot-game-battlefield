@@ -1,6 +1,7 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://src/Actor/Player.gd" type="Script" id=1]
+[ext_resource path="res://src/Actor/Player_movement.gd" type="Script" id=2]
 [ext_resource path="res://Assets/smoke_jump.png" type="Texture" id=3]
 [ext_resource path="res://src/Item/Gun.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Assets/health_bar_red.png" type="Texture" id=5]
@@ -167,6 +168,7 @@ gun = ExtResource( 4 )
 
 [node name="Player" type="KinematicBody2D" parent="."]
 collision_mask = 6
+script = ExtResource( 2 )
 
 [node name="sprite" type="Sprite" parent="Player"]
 position = Vector2( 0, -31.1928 )
