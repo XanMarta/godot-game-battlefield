@@ -22,9 +22,11 @@ config/icon="res://icon.png"
 [autoload]
 
 GameData="*res://src/Autoload/GameData.tscn"
+Gunlist="*res://src/Autoload/Gunlist.tscn"
 
 [display]
 
+window/size/resizable=false
 window/size/always_on_top=true
 
 [input]
@@ -107,6 +109,7 @@ p2_drop={
 2d_physics/layer_3="block_full"
 2d_physics/layer_4="bullet"
 2d_physics/layer_5="deadzone"
+2d_physics/layer_6="bubble"
 
 [rendering]
 

@@ -10,19 +10,20 @@ export (PackedScene) var gun
 export var health = 100 setget set_health
 
 
-
-var is_alive = false
-
 onready var player = $Player
 onready var gun_hand = $Player/GunPosition/Gun_hand
 onready var gun_second = $Player/GunPosition/Gun_second
 
 
+var is_alive = false
+var current_bubble = null
+
+
 func _ready():
 	$Player/sprite.texture = load("res://Assets/" + type + ".png")
 	$Player.type = self.type
-	equip_gun(GameData.assault, true)
-	equip_gun(GameData.sniper, false)
+	equip_gun(Gunlist.assault, true)
+	equip_gun(Gunlist.sniper, false)
 	spawn()
 
 
@@ -51,18 +52,27 @@ func fire():
 
 
 func change():
-	var old_gun_hand = null
-	var old_gun_second = null
-	if gun_hand.get_child_count() > 0:
-		old_gun_hand = gun_hand.get_child(0)
-		gun_hand.remove_child(old_gun_hand)
-	if gun_second.get_child_count() > 0:
-		old_gun_second = gun_second.get_child(0)
-		gun_second.remove_child(old_gun_second)
-	if old_gun_hand != null:
-		gun_second.add_child(old_gun_hand)
-	if old_gun_second != null:
-		gun_hand.add_child(old_gun_second)
+	if current_bubble == null:
+		var old_gun_hand = null
+		var old_gun_second = null
+		if gun_hand.get_child_count() > 0:
+			old_gun_hand = gun_hand.get_child(0)
+			gun_hand.remove_child(old_gun_hand)
+		if gun_second.get_child_count() > 0:
+			old_gun_second = gun_second.get_child(0)
+			gun_second.remove_child(old_gun_second)
+		if old_gun_hand != null:
+			gun_second.add_child(old_gun_hand)
+		if old_gun_second != null:
+			gun_hand.add_child(old_gun_second)
+	
+	else:
+		if gun_hand.get_child_count() > 0:
+			gun_hand.get_child(0).free()
+		var new_gun = current_bubble.take_gun()
+		gun_hand.add_child(new_gun)
+	
+	print("change gun")
 	emit_signal("update_gui")
 
 
@@ -124,3 +134,12 @@ func set_health(value):
 
 func _on_DeadzoneDetect_body_entered(body):
 	die()
+
+
+func _on_BubbleDetect_area_entered(bubble):
+	current_bubble = bubble
+
+
+func _on_BubbleDetect_area_exited(bubble):
+	if current_bubble == bubble:
+		current_bubble = null
