@@ -12,7 +12,7 @@
 [node name="PlayGround" type="Node2D"]
 
 [node name="Background" parent="." instance=ExtResource( 1 )]
-position = Vector2( 0, 80 )
+position = Vector2( 0, 81.8506 )
 
 [node name="Deadzone" parent="." instance=ExtResource( 4 )]
 scale = Vector2( 1.00789, 0.974227 )

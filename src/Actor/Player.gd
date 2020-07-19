@@ -71,6 +71,7 @@ func change():
 			drop()
 		var new_gun = current_bubble.take_gun()
 		gun_hand.add_child(new_gun)
+		player.turn_gun()
 	
 	print("change gun")
 	emit_signal("update_gui")
@@ -79,6 +80,7 @@ func change():
 func drop():
 	if gun_hand.get_child_count() > 0:
 		var old_gun = gun_hand.get_child(0)
+		old_gun.get_node("sprite").flip_v = false
 		var old_position = old_gun.global_position
 		gun_hand.remove_child(old_gun)
 		GameData.emit_signal("drop_gun", old_gun, old_position)
@@ -105,6 +107,7 @@ func equip_gun(gun_type, to_hand = true):
 		var new_gun = gun.instance()
 		new_gun.set_gun(gun_type)
 		to_target.add_child(new_gun)
+		player.turn_gun()
 
 
 func _on_BulletDetect_body_entered(bullet):

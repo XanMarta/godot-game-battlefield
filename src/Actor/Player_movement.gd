@@ -49,16 +49,23 @@ func move_control():
 func turn(right : bool):
 	if right:
 		$sprite.flip_h = false
-		$GunPosition.rotation = 0
-		$GunPosition/Gun_second.rotation = -PI / 2
 		direct = 1.0
 	else:
 		$sprite.flip_h = true
+		direct = -1.0
+	turn_gun()
+
+
+func turn_gun():
+	if direct == 1.0:
+		$GunPosition.rotation = 0
+		$GunPosition/Gun_second.rotation = -PI / 2
+	else:
 		$GunPosition.rotation = PI
 		$GunPosition/Gun_second.rotation = PI / 2
-		direct = -1.0
-		
+	
 	if $GunPosition/Gun_hand.get_child_count() > 0:
 		$GunPosition/Gun_hand.get_child(0).get_node("sprite").flip_v = true if direct == -1.0 else false
 	if $GunPosition/Gun_second.get_child_count() > 0:
 		$GunPosition/Gun_second.get_child(0).get_node("sprite").flip_v = true if direct == -1.0 else false
+		
