@@ -68,7 +68,7 @@ func change():
 	
 	else:
 		if gun_hand.get_child_count() > 0:
-			gun_hand.get_child(0).free()
+			drop()
 		var new_gun = current_bubble.take_gun()
 		gun_hand.add_child(new_gun)
 	
@@ -78,8 +78,11 @@ func change():
 
 func drop():
 	if gun_hand.get_child_count() > 0:
-		gun_hand.get_child(0).free()
-	emit_signal("update_gui")
+		var old_gun = gun_hand.get_child(0)
+		var old_position = old_gun.global_position
+		gun_hand.remove_child(old_gun)
+		GameData.emit_signal("drop_gun", old_gun, old_position)
+		emit_signal("update_gui")
 
 
 func spawn():

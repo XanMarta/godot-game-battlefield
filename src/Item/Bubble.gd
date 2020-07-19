@@ -16,6 +16,9 @@ func take_gun() -> Node2D:
 	$AnimationPlayer.play("disappear")
 	monitorable = false
 	return gun
-	
+
+
+func set_gun(gun):
+	$Bubble/Gun.add_child(gun)
 
 
