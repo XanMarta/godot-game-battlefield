@@ -7,7 +7,7 @@
 [ext_resource path="res://Assets/health_bar_green.png" type="Texture" id=5]
 [ext_resource path="res://Assets/health_bar_red.png" type="Texture" id=6]
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=1]
 resource_name = "player_die"
 length = 2.5
 tracks/0/type = "value"
@@ -123,4 +123,4 @@ __meta__ = {
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/player_die = SubResource( 2 )
+anims/player_die = SubResource( 1 )
