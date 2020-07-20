@@ -69,7 +69,7 @@ func change():
 	else:
 		if gun_hand.get_child_count() > 0:
 			drop()
-		var new_gun = current_bubble.take_gun()
+		var new_gun = current_bubble.get_parent().take_gun()
 		gun_hand.add_child(new_gun)
 		player.turn_gun()
 	
