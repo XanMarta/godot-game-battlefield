@@ -67,13 +67,16 @@ func change():
 			gun_hand.add_child(old_gun_second)
 	
 	else:
+		var to_target = gun_hand
 		if gun_hand.get_child_count() > 0:
-			drop()
+			if gun_second.get_child_count() == 0:
+				to_target = gun_second
+			else:
+				drop()
 		var new_gun = current_bubble.get_parent().take_gun()
-		gun_hand.add_child(new_gun)
+		to_target.add_child(new_gun)
 		player.turn_gun()
 	
-	print("change gun")
 	emit_signal("update_gui")
 
 
