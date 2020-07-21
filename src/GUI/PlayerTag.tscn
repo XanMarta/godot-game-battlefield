@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Assets/paper.png" type="Texture" id=1]
 [ext_resource path="res://Assets/health_bar_purple.png" type="Texture" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://src/GUI/PlayerTag.gd" type="Script" id=4]
 [ext_resource path="res://Assets/health_bar_green.png" type="Texture" id=5]
 [ext_resource path="res://Assets/health_bar_red.png" type="Texture" id=6]
+[ext_resource path="res://Assets/heart.png" type="Texture" id=7]
 
 [sub_resource type="Animation" id=1]
 resource_name = "player_die"
@@ -118,6 +119,34 @@ margin_right = 49.0
 margin_bottom = -6.0
 align = 1
 valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Heart" type="Node2D" parent="."]
+
+[node name="heart1" type="Sprite" parent="Heart"]
+position = Vector2( -12.8041, -124.521 )
+scale = Vector2( 0.13, 0.13 )
+texture = ExtResource( 7 )
+
+[node name="heart2" type="Sprite" parent="Heart"]
+position = Vector2( 10.5548, -124.521 )
+scale = Vector2( 0.13, 0.13 )
+texture = ExtResource( 7 )
+
+[node name="heart3" type="Sprite" parent="Heart"]
+position = Vector2( 32.6843, -124.521 )
+scale = Vector2( 0.13, 0.13 )
+texture = ExtResource( 7 )
+
+[node name="Label" type="Label" parent="Heart"]
+margin_left = 28.5777
+margin_top = -130.385
+margin_right = 56.5777
+margin_bottom = -99.3853
+text = "3
+"
 __meta__ = {
 "_edit_use_anchors_": false
 }

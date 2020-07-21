@@ -37,3 +37,22 @@ func update_gui():
 		$HealthBar.value = target.health
 		if !target.is_alive:
 			$AnimationPlayer.play("player_die")
+		
+		if target.life > 3:
+			$Heart/heart1.visible = false
+			$Heart/heart3.visible = false
+			$Heart/heart2.visible = true
+			$Heart/Label.visible = true
+			$Heart/Label.text = str(target.life)
+		else:
+			$Heart/heart1.visible = true
+			$Heart/heart3.visible = true
+			$Heart/heart2.visible = true
+			if target.life < 3:
+				$Heart/heart3.visible = false
+				if target.life < 2:
+					$Heart/heart2.visible = false
+					if target.life < 1:
+						$Heart/heart1.visible = false
+			$Heart/Label.visible = false
+			

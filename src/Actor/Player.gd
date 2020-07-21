@@ -7,7 +7,9 @@ export var type = "p1"
 export var player_name = "Mark"
 export (PackedScene) var gun
 
+
 export var health = 100 setget set_health
+export var life = 5 setget set_life
 
 
 onready var player = $Player
@@ -127,8 +129,9 @@ func _on_BulletDetect_body_entered(bullet):
 
 
 func die():
-	print("dead")
 	is_alive = false
+	self.life -= 1
+	print("dead. Remain life: ", life)
 	emit_signal("update_gui")
 	$AnimationPlayer.play("dead")
 	$Player/BulletDetect.set_deferred("monitoring", false)
@@ -140,6 +143,13 @@ func die():
 func set_health(value):
 	health = value
 	$Player/HealthBar.value = health
+	emit_signal("update_gui")
+
+func set_life(value):
+	life = value
+	emit_signal("update_gui")
+
+
 
 func _on_DeadzoneDetect_body_entered(body):
 	die()
