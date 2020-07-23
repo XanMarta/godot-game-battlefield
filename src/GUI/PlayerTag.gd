@@ -54,5 +54,6 @@ func update_gui():
 					$Heart/heart2.visible = false
 					if target.life < 1:
 						$Heart/heart1.visible = false
+			$elimilated.visible = true if target.life < 1 else false
 			$Heart/Label.visible = false
 			

@@ -9,7 +9,7 @@ export (PackedScene) var gun
 
 
 export var health = 100 setget set_health
-export var life = 5 setget set_life
+export var life = 2 setget set_life
 
 
 onready var player = $Player
@@ -53,7 +53,7 @@ func fire():
 			emit_signal("update_gui")
 
 
-func change():
+func change(): # and equip gun from bubble
 	if current_bubble == null:
 		var old_gun_hand = null
 		var old_gun_second = null
@@ -92,6 +92,23 @@ func drop():
 		emit_signal("update_gui")
 
 
+func drop_all():
+	if gun_hand.get_child_count() > 0:
+		var old_gun = gun_hand.get_child(0)
+		old_gun.get_node("sprite").flip_v = false
+		var old_position = old_gun.global_position + Vector2(30, 0)
+		gun_hand.remove_child(old_gun)
+		GameData.emit_signal("drop_gun", old_gun, old_position)
+	if gun_second.get_child_count() > 0:
+		var old_gun = gun_second.get_child(0)
+		old_gun.get_node("sprite").flip_v = false
+		var old_position = old_gun.global_position - Vector2(30, 0)
+		gun_second.remove_child(old_gun)
+		GameData.emit_signal("drop_gun", old_gun, old_position)
+	emit_signal("update_gui")
+
+
+
 func spawn():
 	$SpawnPath/PathFollow2D.unit_offset = randf()
 	$Player.global_position = $SpawnPath/PathFollow2D.global_position
@@ -103,6 +120,7 @@ func spawn():
 	self.health = 100
 	$AnimationPlayer.play("spawn")
 	$Player/HealthBar.visible = false
+	$Player/BulletDetect.set_deferred("monitoring", true)
 	emit_signal("update_gui")
 
 
@@ -134,10 +152,11 @@ func die():
 	print("dead. Remain life: ", life)
 	emit_signal("update_gui")
 	$AnimationPlayer.play("dead")
+	call_deferred("drop_all")
 	$Player/BulletDetect.set_deferred("monitoring", false)
 	yield($AnimationPlayer, "animation_finished")
-	$Player/BulletDetect.set_deferred("monitoring", true)
-	spawn()
+	if life > 0:
+		spawn()
 
 
 func set_health(value):
@@ -157,8 +176,10 @@ func _on_DeadzoneDetect_body_entered(body):
 
 func _on_BubbleDetect_area_entered(bubble):
 	current_bubble = bubble
+	current_bubble.get_parent().show_name()
 
 
 func _on_BubbleDetect_area_exited(bubble):
 	if current_bubble == bubble:
+		current_bubble.get_parent().hide_name()
 		current_bubble = null
