@@ -26,7 +26,6 @@ Gunlist="*res://src/Autoload/Gunlist.tscn"
 
 [display]
 
-window/size/resizable=false
 window/size/always_on_top=true
 
 [input]

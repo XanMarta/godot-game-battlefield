@@ -7,6 +7,7 @@ func connect_player(player):
 	target = player
 	player.connect("update_gui", self, "update_gui")
 	$Name.text = player.player_name
+	$noplayer.visible = false
 	update_gui()
 
 

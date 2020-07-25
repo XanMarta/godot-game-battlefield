@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Assets/paper.png" type="Texture" id=1]
 [ext_resource path="res://Assets/health_bar_purple.png" type="Texture" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://Assets/health_bar_red.png" type="Texture" id=6]
 [ext_resource path="res://Assets/heart.png" type="Texture" id=7]
 [ext_resource path="res://Assets/elimilated.png" type="Texture" id=8]
+[ext_resource path="res://Assets/noplayer.png" type="Texture" id=9]
 
 [sub_resource type="Animation" id=1]
 resource_name = "player_die"
@@ -157,6 +158,11 @@ visible = false
 position = Vector2( 5.15021, -68.1679 )
 scale = Vector2( 0.29, 0.29 )
 texture = ExtResource( 8 )
+
+[node name="noplayer" type="Sprite" parent="."]
+position = Vector2( 5.64989, -67.2313 )
+scale = Vector2( 0.29, 0.29 )
+texture = ExtResource( 9 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/player_die = SubResource( 1 )

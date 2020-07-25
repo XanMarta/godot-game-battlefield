@@ -1,6 +1,7 @@
 extends Node2D
 
 signal update_gui
+signal player_die
 
 
 export var type = "p1"
@@ -157,6 +158,8 @@ func die():
 	yield($AnimationPlayer, "animation_finished")
 	if life > 0:
 		spawn()
+	else:
+		emit_signal("player_die")
 
 
 func set_health(value):
