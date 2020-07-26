@@ -70,15 +70,16 @@ func change(): # and equip gun from bubble
 			gun_hand.add_child(old_gun_second)
 	
 	else:
-		var to_target = gun_hand
-		if gun_hand.get_child_count() > 0:
-			if gun_second.get_child_count() == 0:
-				to_target = gun_second
-			else:
-				drop()
-		var new_gun = current_bubble.get_parent().take_gun()
-		to_target.add_child(new_gun)
-		player.turn_gun()
+		if current_bubble.bubble_type == "gun":
+			var to_target = gun_hand
+			if gun_hand.get_child_count() > 0:
+				if gun_second.get_child_count() == 0:
+					to_target = gun_second
+				else:
+					drop()
+			var new_gun = current_bubble.take_bubble()
+			to_target.add_child(new_gun)
+			player.turn_gun()
 	
 	emit_signal("update_gui")
 
@@ -178,11 +179,11 @@ func _on_DeadzoneDetect_body_entered(body):
 
 
 func _on_BubbleDetect_area_entered(bubble):
-	current_bubble = bubble
-	current_bubble.get_parent().show_name()
+	current_bubble = bubble.get_parent()
+	current_bubble.show_name()
 
 
 func _on_BubbleDetect_area_exited(bubble):
-	if current_bubble == bubble:
-		current_bubble.get_parent().hide_name()
+	if current_bubble == bubble.get_parent():
+		current_bubble.hide_name()
 		current_bubble = null

@@ -11,6 +11,7 @@ func _ready():
 
 func spawn_bubble(gun, pos):
 	var new_bubble = bubble.instance()
+	new_bubble.bubble_type = "gun"
 	new_bubble.set_gun(gun)
 	new_bubble.position = pos
 	add_child(new_bubble)
