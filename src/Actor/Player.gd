@@ -90,7 +90,7 @@ func drop():
 		old_gun.get_node("sprite").flip_v = false
 		var old_position = old_gun.global_position
 		gun_hand.remove_child(old_gun)
-		GameData.emit_signal("drop_gun", old_gun, old_position)
+		GameData.emit_signal("spawn_bubble", "gun", old_gun, old_position)
 		emit_signal("update_gui")
 
 
@@ -100,13 +100,13 @@ func drop_all():
 		old_gun.get_node("sprite").flip_v = false
 		var old_position = old_gun.global_position + Vector2(30, 0)
 		gun_hand.remove_child(old_gun)
-		GameData.emit_signal("drop_gun", old_gun, old_position)
+		GameData.emit_signal("spawn_bubble", "gun", old_gun, old_position)
 	if gun_second.get_child_count() > 0:
 		var old_gun = gun_second.get_child(0)
 		old_gun.get_node("sprite").flip_v = false
 		var old_position = old_gun.global_position - Vector2(30, 0)
 		gun_second.remove_child(old_gun)
-		GameData.emit_signal("drop_gun", old_gun, old_position)
+		GameData.emit_signal("spawn_bubble", "gun", old_gun, old_position)
 	emit_signal("update_gui")
 
 
@@ -179,8 +179,18 @@ func _on_DeadzoneDetect_body_entered(body):
 
 
 func _on_BubbleDetect_area_entered(bubble):
-	current_bubble = bubble.get_parent()
-	current_bubble.show_name()
+	# When bubble is not gun
+	if bubble.get_parent().bubble_type != "gun":
+		var new_bubble = bubble.get_parent()
+		if new_bubble.bubble_type == "heart":
+			self.life += 1
+		new_bubble.take_bubble()
+	# When bubble is gun
+	else:
+		if current_bubble != null:
+			current_bubble.hide_name()
+		current_bubble = bubble.get_parent()
+		current_bubble.show_name()
 
 
 func _on_BubbleDetect_area_exited(bubble):

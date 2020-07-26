@@ -229,6 +229,8 @@ __meta__ = {
 [node name="Item" type="Node2D" parent="Bubble"]
 visible = false
 
+[node name="image" type="Sprite" parent="Bubble/Item"]
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "waving"
 anims/close = SubResource( 2 )

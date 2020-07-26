@@ -1,7 +1,7 @@
 extends Node2D
 
 
-signal drop_gun(gun, pos)
+signal spawn_bubble(item_name, item, pos)
 
 
 var player_speed = Vector2(200, 350)

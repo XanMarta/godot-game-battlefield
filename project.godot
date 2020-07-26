@@ -23,6 +23,7 @@ config/icon="res://icon.png"
 
 GameData="*res://src/Autoload/GameData.tscn"
 Gunlist="*res://src/Autoload/Gunlist.tscn"
+Itemlist="*res://src/Autoload/ItemList.tscn"
 
 [display]
 

@@ -28,11 +28,17 @@ func set_type(type):
 	else:
 		$Bubble/Item.visible = true
 
+
+
 func set_gun(gun):
 	$Bubble/Gun/Gun.add_child(gun)
 	$Bubble/Gun/BulletBar.max_value = gun.capacity
 	$Bubble/Gun/BulletBar.value = gun.bullet
 	$Label.text = gun.gun_name
+
+func set_item(item_name):
+	$Label.text = item_name
+	$Bubble/Item/image.texture = load("res://Assets/" + item_name + ".png")
 
 
 
@@ -40,10 +46,11 @@ func take_bubble() -> Node2D:
 	if bubble_type == "gun":
 		var gun = $Bubble/Gun/Gun.get_child(0)
 		$Bubble/Gun/Gun.remove_child(gun)
-		$Bubble/Gun/BulletBar.visible = false
+		$Bubble/Gun.visible = false
 		$AnimationPlayer.play("disappear")
 		return gun
 	else:
+		$AnimationPlayer.play("disappear")
 		return null
 	
 
