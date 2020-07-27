@@ -7,6 +7,7 @@ var jump
 var direct = 1.0
 var force = Vector2(0, 0)
 var type
+var speed_boost = 1.0
 
 
 func move_control():
@@ -16,8 +17,9 @@ func move_control():
 	elif direction > 0.0:
 		turn(true)
 	
-	velocity.x = direction * GameData.player_speed.x
+	velocity.x = direction * GameData.player_speed.x * speed_boost
 	velocity.y += GameData.gravity * get_physics_process_delta_time()
+	
 	
 	if is_on_floor():
 		jump = GameData.jump_power
@@ -44,6 +46,12 @@ func move_control():
 			velocity.y += GameData.gravity * get_physics_process_delta_time()
 			yield(get_tree().create_timer(0.2), "timeout")
 			set_collision_mask_bit(1, true)
+
+
+func boost_speed():
+	speed_boost = 1.5
+	yield(get_tree().create_timer(5.0), "timeout")
+	speed_boost = 1.0
 
 
 func turn(right : bool):

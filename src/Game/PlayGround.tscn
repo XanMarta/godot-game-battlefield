@@ -26,7 +26,7 @@ script = ExtResource( 8 )
 [node name="Map1" parent="Map/Map" instance=ExtResource( 2 )]
 
 [node name="ItemSpawn" type="Timer" parent="Map"]
-wait_time = 15.0
+wait_time = 5.0
 
 [node name="Actors" type="Node2D" parent="."]
 script = ExtResource( 7 )
@@ -61,3 +61,4 @@ update_scale = false
 script = ExtResource( 9 )
 
 [node name="Player_tag_scene" parent="." instance=ExtResource( 5 )]
+[connection signal="timeout" from="Map/ItemSpawn" to="Map" method="_on_ItemSpawn_timeout"]

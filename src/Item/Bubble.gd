@@ -36,6 +36,7 @@ func set_gun(gun):
 	$Bubble/Gun/BulletBar.value = gun.bullet
 	$Label.text = gun.gun_name
 
+
 func set_item(item_name):
 	$Label.text = item_name
 	$Bubble/Item/image.texture = load("res://Assets/" + item_name + ".png")

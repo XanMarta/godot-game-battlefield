@@ -25,6 +25,14 @@ func set_gun(gun):
 	$Fire_rate.wait_time = fire_wait
 
 
+func fill(all = true):
+	if all:
+		bullet = capacity
+	else:
+		bullet += capacity / 2
+		bullet = clamp(bullet, 0, capacity)
+
+
 func get_bullet() -> PackedScene:
 	return bullet_type
 

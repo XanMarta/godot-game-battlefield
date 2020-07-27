@@ -179,18 +179,31 @@ func _on_DeadzoneDetect_body_entered(body):
 
 
 func _on_BubbleDetect_area_entered(bubble):
-	# When bubble is not gun
-	if bubble.get_parent().bubble_type != "gun":
-		var new_bubble = bubble.get_parent()
-		if new_bubble.bubble_type == "heart":
-			self.life += 1
-		new_bubble.take_bubble()
 	# When bubble is gun
-	else:
+	if bubble.get_parent().bubble_type == "gun":
 		if current_bubble != null:
 			current_bubble.hide_name()
 		current_bubble = bubble.get_parent()
 		current_bubble.show_name()
+	# When bubble is not gun
+	else:
+		var new_bubble = bubble.get_parent()
+		
+		# Heart
+		if new_bubble.bubble_type == "heart":
+			self.life += 1
+		# Bullet_box
+		elif new_bubble.bubble_type == "bullet_box":
+			if gun_hand.get_child_count() > 0:
+				gun_hand.get_child(0).fill(false)
+			if gun_second.get_child_count() > 0:
+				gun_second.get_child(0).fill(false)
+			emit_signal("update_gui")
+		# Splash
+		elif new_bubble.bubble_type == "splash":
+			$Player.boost_speed()
+		
+		new_bubble.take_bubble()
 
 
 func _on_BubbleDetect_area_exited(bubble):
