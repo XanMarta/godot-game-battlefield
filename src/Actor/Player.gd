@@ -25,8 +25,8 @@ var current_bubble = null
 func _ready():
 	$Player/sprite.texture = load("res://Assets/" + type + ".png")
 	$Player.type = self.type
-	equip_gun(Gunlist.assault, true)
-	equip_gun(Gunlist.sniper, false)
+	equip_gun(Gunlist.assault)
+	equip_gun(Gunlist.sniper)
 	spawn()
 
 
@@ -126,8 +126,15 @@ func spawn():
 	emit_signal("update_gui")
 
 
-func equip_gun(gun_type, to_hand = true):
-	var to_target = gun_hand if to_hand else gun_second
+func equip_gun(gun_type):
+	var to_target
+	if gun_hand.get_child_count() == 0:
+		to_target = gun_hand
+	elif gun_second.get_child_count() == 0:
+		to_target = gun_second
+	else:
+		return
+	
 	if to_target.get_child_count() == 0:
 		var new_gun = gun.instance()
 		new_gun.set_gun(gun_type)

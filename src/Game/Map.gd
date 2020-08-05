@@ -3,8 +3,6 @@ extends Node2D
 
 var map_size = Vector2(31, 18)
 
-var temp = 1
-
 func _ready():
 	$ItemSpawn.start()
 
@@ -25,13 +23,11 @@ func spawn_item(item_name):
 
 
 func _on_ItemSpawn_timeout():
-	if temp == 1:
+	var spawn_choice = rand_range(0.0, 4.0)
+	if spawn_choice >= 1.0 and spawn_choice < 2.0:
 		spawn_item("heart")
-	elif temp == 2:
+	elif spawn_choice >= 2.0 and spawn_choice < 3.0:
 		spawn_item("bullet_box")
-	elif temp == 3:
+	elif spawn_choice >= 3.0 and spawn_choice < 4.0:
 		spawn_item("splash")
 	
-	temp += 1
-	if temp == 4:
-		temp = 1
