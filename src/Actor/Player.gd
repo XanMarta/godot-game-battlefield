@@ -4,13 +4,16 @@ signal update_gui
 signal player_die
 
 
-export var type = "p1"
-export var player_name = "Mark"
 export (PackedScene) var gun
 
 
+
+export var type = "p1"
+export var player_name = "Mark"
 export var health = 100 setget set_health
 export var life = 2 setget set_life
+export var init_gun_1 = "AR01"
+export var init_gun_2 = "SR01"
 
 
 onready var player = $Player
@@ -25,8 +28,7 @@ var current_bubble = null
 func _ready():
 	$Player/sprite.texture = load("res://Assets/" + type + ".png")
 	$Player.type = self.type
-	equip_gun(Gunlist.assault)
-	equip_gun(Gunlist.sniper)
+	init_player()
 	spawn()
 
 
@@ -39,6 +41,13 @@ func _physics_process(delta):
 			change()
 		if Input.is_action_just_pressed(type + "_drop"):
 			drop()
+
+func init_player():
+	if init_gun_1 != "":
+		equip_gun(Gunlist.gunlist[init_gun_1])
+	if init_gun_2 != "":
+		equip_gun(Gunlist.gunlist[init_gun_2])
+	
 
 
 func fire():

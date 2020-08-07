@@ -33,6 +33,7 @@ script = ExtResource( 7 )
 
 [node name="Player1" parent="Actors" instance=ExtResource( 3 )]
 scale = Vector2( 1.01056, 1.01018 )
+init_gun_2 = "SM01"
 
 [node name="Player2" parent="Actors" instance=ExtResource( 3 )]
 type = "p2"
