@@ -15,7 +15,7 @@ var bullet = 100
 
 
 func set_gun(gun):
-	$sprite.texture = gun["image"]
+	$sprite.texture = Gunlist.load_gun_image(gun["code"])
 	gun_name = gun["name"]
 	recoil = gun["recoil"]
 	damage = gun["damage"]

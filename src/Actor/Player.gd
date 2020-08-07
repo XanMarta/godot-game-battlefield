@@ -16,13 +16,13 @@ export var init_gun_1 = "AR01"
 export var init_gun_2 = "SR01"
 
 
+var is_alive = false
+var current_bubble = null
+
+
 onready var player = $Player
 onready var gun_hand = $Player/GunPosition/Gun_hand
 onready var gun_second = $Player/GunPosition/Gun_second
-
-
-var is_alive = false
-var current_bubble = null
 
 
 func _ready():
@@ -47,7 +47,7 @@ func init_player():
 		equip_gun(Gunlist.gunlist[init_gun_1])
 	if init_gun_2 != "":
 		equip_gun(Gunlist.gunlist[init_gun_2])
-	
+	set_spawn_position()
 
 
 func fire():
@@ -121,8 +121,6 @@ func drop_all():
 
 
 func spawn():
-	$SpawnPath/PathFollow2D.unit_offset = randf()
-	$Player.global_position = $SpawnPath/PathFollow2D.global_position
 	$Player.velocity = Vector2.ZERO
 	$Player.jump = GameData.jump_power
 	$Player.turn(true)
@@ -173,6 +171,7 @@ func die():
 	call_deferred("drop_all")
 	$Player/BulletDetect.set_deferred("monitoring", false)
 	yield($AnimationPlayer, "animation_finished")
+	set_spawn_position()
 	if life > 0:
 		spawn()
 	else:
@@ -187,6 +186,11 @@ func set_health(value):
 func set_life(value):
 	life = value
 	emit_signal("update_gui")
+
+
+func set_spawn_position():
+	$SpawnPath/PathFollow2D.unit_offset = randf()
+	$Player.global_position = $SpawnPath/PathFollow2D.global_position
 
 
 

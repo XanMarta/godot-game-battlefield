@@ -1,6 +1,8 @@
 extends Node2D
 
 
+var gun_directory = "res://Assets/Gunlist/"
+
 var gunlist = {}
 
 
@@ -8,11 +10,15 @@ func _ready():
 	load_gunlist()
 
 
+func load_gun_image(code) -> Resource:
+	return load(gun_directory + code + ".png")
+
+
 func load_gunlist():
 	
 	gunlist["AR01"] = {
+		"code": "AR01",
 		"name": "assault riffe",
-		"image": load("res://Assets/gun1.png"),
 		"recoil": 200,
 		"damage": 1000,
 		"fire_wait": 0.15,
@@ -20,8 +26,8 @@ func load_gunlist():
 	}
 	
 	gunlist["SR01"] = {
+		"code": "SR01",
 		"name": "sniper riffe",
-		"image": load("res://Assets/gun2.png"),
 		"recoil": 5000,
 		"damage": 20000,
 		"fire_wait": 1.5,
@@ -29,8 +35,8 @@ func load_gunlist():
 	}
 	
 	gunlist["SM01"] = {
+		"code": "SM01",
 		"name": "Smg",
-		"image": load("res://Assets/gun1.png"),
 		"recoil": 100,
 		"damage": 500,
 		"fire_wait": 0.05,

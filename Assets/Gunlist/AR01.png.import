@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/gun1.png-7278ad4c66ab1ea07fcbc320c1e828eb.stex"
+path="res://.import/AR01.png-045cde18fab0cbf5a3a094a4671a21f4.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/gun1.png"
-dest_files=[ "res://.import/gun1.png-7278ad4c66ab1ea07fcbc320c1e828eb.stex" ]
+source_file="res://Assets/Gunlist/AR01.png"
+dest_files=[ "res://.import/AR01.png-045cde18fab0cbf5a3a094a4671a21f4.stex" ]
 
 [params]
 
