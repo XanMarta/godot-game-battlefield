@@ -8,20 +8,18 @@ export (PackedScene) var gun
 
 
 
-export var type = "p1"
-export var player_name = "Mark"
-export var health = 100 setget set_health
-export var life = 2 setget set_life
-export var init_gun_1 = "AR01"
-export var init_gun_2 = "SR01"
-
-
-var body
-var control_type
+var player_name = "Mark"
+var body = "Blue"
+var control_type = "p1"
+var init_gun_1 = "AR01"
+var init_gun_2 = "SR01"
 
 
 var is_alive = false
 var current_bubble = null
+var health = 100 setget set_health
+var life = 2 setget set_life
+
 
 
 onready var player = $Player
@@ -29,28 +27,25 @@ onready var gun_hand = $Player/GunPosition/Gun_hand
 onready var gun_second = $Player/GunPosition/Gun_second
 
 
-func _ready():
-	$Player/sprite.texture = load("res://Assets/" + type + ".png")
-	$Player.type = self.type
-	init_player()
-
-
-func _physics_process(delta):
-	if is_alive:
-		$Player.move_control()
-		if Input.is_action_pressed(type + "_fire"):
-			fire()
-		if Input.is_action_just_pressed(type + "_change"):
-			change()
-		if Input.is_action_just_pressed(type + "_drop"):
-			drop()
-
 func init_player():
+	$Player/sprite.texture = load("res://Assets/Player/Body/" + body + ".png")
+	$Player.control_type = self.control_type
 	if init_gun_1 != "":
 		equip_gun(Gunlist.gunlist[init_gun_1])
 	if init_gun_2 != "":
 		equip_gun(Gunlist.gunlist[init_gun_2])
 	set_spawn_position()
+
+
+func _physics_process(delta):
+	if is_alive:
+		$Player.move_control()
+		if Input.is_action_pressed(control_type + "_fire"):
+			fire()
+		if Input.is_action_just_pressed(control_type + "_change"):
+			change()
+		if Input.is_action_just_pressed(control_type + "_drop"):
+			drop()
 
 
 func fire():

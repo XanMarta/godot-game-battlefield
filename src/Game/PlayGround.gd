@@ -8,14 +8,14 @@ export (PackedScene) var player_scene
 func init_player():
 	GameData.player.push_back({
 		"player_name" : "Mark",
-		"body" : "p1",
+		"body" : "Blue",
 		"control_type" : "p1",
 		"init_gun_1" : "SM01",
 		"init_gun_2" : "SR01"
 	})
 	GameData.player.push_back({
 		"player_name" : "Daniel",
-		"body" : "p2",
+		"body" : "Red",
 		"control_type" : "p2",
 		"init_gun_1" : "AR01",
 		"init_gun_2" : "SR01"
@@ -34,11 +34,11 @@ func prepare_game():
 		var new_player = player_scene.instance()
 		new_player.player_name = player["player_name"]
 		new_player.body = player["body"]
-		new_player.control_type = ["control_type"]
+		new_player.control_type = player["control_type"]
 		new_player.init_gun_1 = player["init_gun_1"]
 		new_player.init_gun_2 = player["init_gun_2"]
 		$Actors.add_child(new_player)
-	$Actors.connect_player()
+	$Actors.prepare_game()
 	GameData.player.clear()
 	
 	$GameGUI.start()

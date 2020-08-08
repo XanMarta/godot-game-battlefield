@@ -6,12 +6,12 @@ var velocity = Vector2.ZERO
 var jump
 var direct = 1.0
 var force = Vector2(0, 0)
-var type
+var control_type = ""
 var speed_boost = 1.0
 
 
 func move_control():
-	var direction = Input.get_action_strength(type + "_right") - Input.get_action_strength(type + "_left")
+	var direction = Input.get_action_strength(control_type + "_right") - Input.get_action_strength(control_type + "_left")
 	if direction < 0.0:
 		turn(false)
 	elif direction > 0.0:
@@ -24,7 +24,7 @@ func move_control():
 	if is_on_floor():
 		jump = GameData.jump_power
 	
-	if Input.is_action_just_pressed(type + "_up"):
+	if Input.is_action_just_pressed(control_type + "_up"):
 		if jump > 0:
 			jump -= 1
 			velocity.y = -GameData.player_speed.y
@@ -40,7 +40,7 @@ func move_control():
 	velocity.y = clamp(velocity.y, -GameData.max_fall, GameData.max_fall)
 	velocity = move_and_slide(velocity, Vector2.UP)
 	
-	if Input.is_action_just_pressed(type + "_down"):
+	if Input.is_action_just_pressed(control_type + "_down"):
 		if is_on_floor():
 			set_collision_mask_bit(1, false)
 			velocity.y += GameData.gravity * get_physics_process_delta_time()
