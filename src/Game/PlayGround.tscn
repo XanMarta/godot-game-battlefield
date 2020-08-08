@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://src/Background/Background.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/Map/Map1.tscn" type="PackedScene" id=2]
@@ -9,8 +9,12 @@
 [ext_resource path="res://src/Game/Actors.gd" type="Script" id=7]
 [ext_resource path="res://src/Game/Map.gd" type="Script" id=8]
 [ext_resource path="res://src/Game/Bubble_scene.gd" type="Script" id=9]
+[ext_resource path="res://src/GUI/GameGUI.tscn" type="PackedScene" id=10]
+[ext_resource path="res://src/Game/PlayGround.gd" type="Script" id=11]
 
 [node name="PlayGround" type="Node2D"]
+script = ExtResource( 11 )
+player_scene = ExtResource( 3 )
 
 [node name="Background" parent="." instance=ExtResource( 1 )]
 position = Vector2( 0, 81.8506 )
@@ -31,13 +35,6 @@ wait_time = 5.0
 [node name="Actors" type="Node2D" parent="."]
 script = ExtResource( 7 )
 
-[node name="Player1" parent="Actors" instance=ExtResource( 3 )]
-scale = Vector2( 1.01056, 1.01018 )
-init_gun_2 = "SM01"
-
-[node name="Player2" parent="Actors" instance=ExtResource( 3 )]
-type = "p2"
-
 [node name="Camera" type="Node2D" parent="."]
 script = ExtResource( 6 )
 
@@ -51,10 +48,15 @@ limit_smoothed = true
 smoothing_enabled = true
 smoothing_speed = 2.0
 
-[node name="Player_tag" type="Node2D" parent="Camera"]
+[node name="Screen" type="Node2D" parent="Camera"]
 
-[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Camera/Player_tag"]
+[node name="PlayerTag" type="RemoteTransform2D" parent="Camera/Screen"]
 remote_path = NodePath("../../../Player_tag_scene")
+update_rotation = false
+update_scale = false
+
+[node name="GameGUI" type="RemoteTransform2D" parent="Camera/Screen"]
+remote_path = NodePath("../../../GameGUI")
 update_rotation = false
 update_scale = false
 
@@ -62,4 +64,7 @@ update_scale = false
 script = ExtResource( 9 )
 
 [node name="Player_tag_scene" parent="." instance=ExtResource( 5 )]
+
+[node name="GameGUI" parent="." instance=ExtResource( 10 )]
 [connection signal="timeout" from="Map/ItemSpawn" to="Map" method="_on_ItemSpawn_timeout"]
+[connection signal="start_game" from="GameGUI" to="." method="_on_GameGUI_start_game"]

@@ -2,7 +2,7 @@ extends Node2D
 
 
 
-func _ready():
+func connect_player():
 	var current = 0
 	for new_player in get_children():
 		get_parent().get_node("Player_tag_scene").player[current] = new_player
@@ -11,3 +11,8 @@ func _ready():
 			break
 	
 	get_parent().get_node("Player_tag_scene").connect_player()
+
+
+func start_game():
+	for player in get_children():
+		player.spawn()

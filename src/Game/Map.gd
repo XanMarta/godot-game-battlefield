@@ -3,7 +3,9 @@ extends Node2D
 
 var map_size = Vector2(31, 18)
 
-func _ready():
+
+
+func start_game():
 	$ItemSpawn.start()
 
 

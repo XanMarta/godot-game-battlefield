@@ -16,6 +16,10 @@ export var init_gun_1 = "AR01"
 export var init_gun_2 = "SR01"
 
 
+var body
+var control_type
+
+
 var is_alive = false
 var current_bubble = null
 
@@ -29,7 +33,6 @@ func _ready():
 	$Player/sprite.texture = load("res://Assets/" + type + ".png")
 	$Player.type = self.type
 	init_player()
-	spawn()
 
 
 func _physics_process(delta):

@@ -12,4 +12,4 @@ func _physics_process(delta):
 	new_pos /= num_player
 	position = new_pos
 	
-	$Player_tag.global_position = $Camera2D.get_camera_screen_center() - get_viewport().size / 2.0
+	$Screen.global_position = $Camera2D.get_camera_screen_center() - get_viewport().size / 2.0
