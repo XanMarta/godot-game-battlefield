@@ -17,7 +17,7 @@ script = ExtResource( 11 )
 player_scene = ExtResource( 3 )
 
 [node name="Background" parent="." instance=ExtResource( 1 )]
-position = Vector2( 0, 81.8506 )
+position = Vector2( 0, 80.4902 )
 
 [node name="Deadzone" parent="." instance=ExtResource( 4 )]
 scale = Vector2( 1.00789, 0.974227 )

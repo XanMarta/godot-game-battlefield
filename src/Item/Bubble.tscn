@@ -169,7 +169,7 @@ tracks/1/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=5]
 length = 2.0
 loop = true
 tracks/0/type = "value"
@@ -236,7 +236,7 @@ autoplay = "waving"
 anims/close = SubResource( 2 )
 anims/disappear = SubResource( 3 )
 anims/flashing = SubResource( 4 )
-anims/waving = SubResource( 6 )
+anims/waving = SubResource( 5 )
 
 [node name="Label" type="Label" parent="."]
 visible = false

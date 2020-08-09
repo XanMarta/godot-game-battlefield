@@ -14,8 +14,9 @@ var capacity = 100
 var bullet = 100
 
 
-func set_gun(gun):
-	$sprite.texture = Gunlist.load_gun_image(gun["code"])
+func set_gun(gun_code): # Spawn new gun by gun_code
+	var gun = Gunlist.gun[gun_code]
+	$sprite.texture = Gunlist.gun_texture[gun_code]
 	gun_name = gun["name"]
 	recoil = gun["recoil"]
 	damage = gun["damage"]

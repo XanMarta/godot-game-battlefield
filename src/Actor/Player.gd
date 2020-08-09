@@ -31,9 +31,11 @@ func init_player():
 	$Player/sprite.texture = load("res://Assets/Player/Body/" + body + ".png")
 	$Player.control_type = self.control_type
 	if init_gun_1 != "":
-		equip_gun(Gunlist.gunlist[init_gun_1])
+		var new_gun = Gunlist.create_gun(init_gun_1)
+		gun_hand.add_child(new_gun)
 	if init_gun_2 != "":
-		equip_gun(Gunlist.gunlist[init_gun_2])
+		var new_gun = Gunlist.create_gun(init_gun_2)
+		gun_second.add_child(new_gun)
 	set_spawn_position()
 
 
@@ -129,22 +131,6 @@ func spawn():
 	$Player/HealthBar.visible = false
 	$Player/BulletDetect.set_deferred("monitoring", true)
 	emit_signal("update_gui")
-
-
-func equip_gun(gun_type):
-	var to_target
-	if gun_hand.get_child_count() == 0:
-		to_target = gun_hand
-	elif gun_second.get_child_count() == 0:
-		to_target = gun_second
-	else:
-		return
-	
-	if to_target.get_child_count() == 0:
-		var new_gun = gun.instance()
-		new_gun.set_gun(gun_type)
-		to_target.add_child(new_gun)
-		player.turn_gun()
 
 
 func _on_BulletDetect_body_entered(bullet):
