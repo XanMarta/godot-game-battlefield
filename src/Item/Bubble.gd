@@ -1,7 +1,7 @@
 extends KinematicBody2D
 
 
-export var bubble_type = "" setget set_type
+export var bubble_type = ""
 export var life_time = 10.0
 
 var velocity = Vector2.ZERO
@@ -20,26 +20,20 @@ func _physics_process(delta):
 
 
 
-
-func set_type(type):
-	bubble_type = type
-	if bubble_type == "gun":
-		$Bubble/Gun.visible = true
-	else:
-		$Bubble/Item.visible = true
-
-
-
 func set_gun(gun):
 	$Bubble/Gun/Gun.add_child(gun)
 	$Bubble/Gun/BulletBar.max_value = gun.capacity
 	$Bubble/Gun/BulletBar.value = gun.bullet
 	$Label.text = gun.gun_name
+	bubble_type = "gun"
+	$Bubble/Gun.visible = true
 
 
 func set_item(item_name):
 	$Label.text = item_name
 	$Bubble/Item/image.texture = load("res://Assets/" + item_name + ".png")
+	bubble_type = item_name
+	$Bubble/Item.visible = true
 
 
 

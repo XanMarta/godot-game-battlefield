@@ -27,3 +27,6 @@ var player_life = 2
 #	"init_gun_2" : "SR01"
 #}
 
+
+func _ready():
+	randomize()
