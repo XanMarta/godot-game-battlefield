@@ -37,6 +37,7 @@ func prepare_game():
 		new_player.control_type = player["control_type"]
 		new_player.init_gun_1 = player["init_gun_1"]
 		new_player.init_gun_2 = player["init_gun_2"]
+		new_player.connect("player_die", self, "player_die")
 		$Actors.add_child(new_player)
 	$Actors.prepare_game()
 	GameData.player.clear()
@@ -45,13 +46,19 @@ func prepare_game():
 
 
 
+func player_die():
+	$Map.end_game()
+	$GameGUI.end()
+
+
+
 func _on_GameGUI_start_game():
 	start_game()
-
 
 func start_game():
 	$Map.start_game()
 	$Actors.start_game()
 
-
+func end_game():
+	get_tree().quit()
 

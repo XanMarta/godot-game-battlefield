@@ -67,4 +67,5 @@ script = ExtResource( 9 )
 
 [node name="GameGUI" parent="." instance=ExtResource( 10 )]
 [connection signal="timeout" from="Map/ItemSpawn" to="Map" method="_on_ItemSpawn_timeout"]
+[connection signal="end_game" from="GameGUI" to="." method="end_game"]
 [connection signal="start_game" from="GameGUI" to="." method="_on_GameGUI_start_game"]

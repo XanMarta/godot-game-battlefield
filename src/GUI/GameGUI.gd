@@ -1,6 +1,7 @@
 extends Node2D
 
 signal start_game
+signal end_game
 
 
 var is_start_game = true
@@ -18,3 +19,9 @@ func start():
 	yield(get_tree().create_timer(2.0), "timeout")
 	$Label.hide()
 
+func end():
+	$Label.show()
+	$Label.text = "END GAME"
+	yield(get_tree().create_timer(3.0), "timeout")
+	$Label.hide()
+	emit_signal("end_game")

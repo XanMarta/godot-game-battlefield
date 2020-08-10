@@ -8,6 +8,9 @@ var map_size = Vector2(31, 18)
 func start_game():
 	$ItemSpawn.start()
 
+func end_game():
+	$ItemSpawn.stop()
+
 
 
 func spawn_item(item_name):
