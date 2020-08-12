@@ -1,6 +1,6 @@
 extends Node2D
 
-signal end_game
+signal end_game(winner)
 
 
 export (PackedScene) var player_scene
@@ -36,4 +36,8 @@ func start_game():
 func player_die():
 	remain_player -= 1
 	if remain_player <= 1:
-		emit_signal("end_game")
+		for player in get_children():
+			if player.is_alive:
+				emit_signal("end_game", player.player_name)
+				return
+		emit_signal("end_game", null)

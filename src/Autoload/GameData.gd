@@ -15,17 +15,9 @@ var player_health = 100
 
 # Imported data ########################
 
-var player = [null, null, null, null]
+var player = []
 
 var player_life = 2
-
-#var player = {
-#	"player_name" : "Mark",
-#	"body" : "p1",
-#	"control_type" : "p1",
-#	"init_gun_1" : "AR01",
-#	"init_gun_2" : "SR01"
-#}
 
 
 func _ready():

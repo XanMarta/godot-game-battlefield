@@ -5,6 +5,7 @@ export (PackedScene) var player_scene
 
 
 func init_player():
+	GameData.player = [null, null, null, null]
 	GameData.player[0] = {
 		"player_name" : "Mark",
 		"body" : "Blue",
@@ -33,27 +34,21 @@ func _ready():
 	prepare_game()
 
 
-
-
 func prepare_game():
-	
 	$Actors.prepare_game()
-	GameData.player.clear()
-	
 	$GameGUI.start()
-
-
-
-
 
 
 func start_game():
 	$Map.start_game()
 	$Actors.start_game()
 
-func end_game():
+func end_game(winner):
 	$Map.end_game()
-	$GameGUI.end()
+	if winner != null:
+		$GameGUI.end(winner)
+	else:
+		$GameGUI.end();
 
 func quit_game():
 	get_tree().quit()
