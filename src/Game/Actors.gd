@@ -1,21 +1,39 @@
 extends Node2D
 
+signal end_game
+
+
+export (PackedScene) var player_scene
+var remain_player = 0
 
 
 func prepare_game():
-	# Init player
-	for player in get_children():
-		player.init_player()
-	# Connect player
-	var current = 0
-	for new_player in get_children():
-		get_parent().get_node("Player_tag_scene").player[current] = new_player
-		current += 1
-		if current > 3:
-			break
-	get_parent().get_node("Player_tag_scene").connect_player()
+	var player_tag = get_parent().get_node("Player_tag_scene")
+	# Import player
+	for stack in GameData.player.size():
+		var player = GameData.player[stack]
+		if player != null:
+			var new_player = player_scene.instance()
+			new_player.player_name = player["player_name"]
+			new_player.body = player["body"]
+			new_player.control_type = player["control_type"]
+			new_player.init_gun_1 = player["init_gun_1"]
+			new_player.init_gun_2 = player["init_gun_2"]
+			new_player.connect("player_die", self, "player_die")
+			add_child(new_player)
+			new_player.init_player()
+			player_tag.connect_player(new_player, stack)
+			remain_player += 1
+	
+
 
 
 func start_game():
 	for player in get_children():
 		player.spawn()
+
+
+func player_die():
+	remain_player -= 1
+	if remain_player <= 1:
+		emit_signal("end_game")

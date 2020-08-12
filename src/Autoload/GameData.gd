@@ -15,7 +15,7 @@ var player_health = 100
 
 # Imported data ########################
 
-var player = []
+var player = [null, null, null, null]
 
 var player_life = 2
 
