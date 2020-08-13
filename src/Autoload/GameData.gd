@@ -22,3 +22,8 @@ var player_life = 2
 
 func _ready():
 	randomize()
+
+
+
+func random(from, to) -> int:
+	return randi() % (to - from + 1) + from

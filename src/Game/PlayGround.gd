@@ -23,7 +23,7 @@ func init_player():
 	GameData.player[3] = {
 		"player_name" : "Markus",
 		"body" : "Red",
-		"control_type" : "p2",
+		"control_type" : "p3",
 		"init_gun_1" : "SR01",
 		"init_gun_2" : "SR01"
 	}

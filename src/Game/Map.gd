@@ -24,7 +24,7 @@ func end_game():
 
 func spawn_item(item_name):
 	var map = $Map.get_child(0).get_node("Block")
-	var ran = rand_range(0, ground.size() - 1)
+	var ran = GameData.random(0, ground.size() - 1)
 	var spawn_cell = Vector2(ground[ran]["x"], ground[ran]["y"] - 1)
 	var spawn_position = map.map_to_world(spawn_cell)
 	if item_name != "gun":
@@ -35,17 +35,17 @@ func spawn_item(item_name):
 
 
 func _on_ItemSpawn_timeout():
-	var spawn_choice = rand_range(0.0, 5.0)
+	var spawn_choice = rand_range(0.0, 6.0)
 	if spawn_choice >= 1.0 and spawn_choice < 2.0:
 		spawn_item("heart")
 	elif spawn_choice >= 2.0 and spawn_choice < 3.0:
 		spawn_item("bullet_box")
 	elif spawn_choice >= 3.0 and spawn_choice < 4.0:
 		spawn_item("splash")
-	elif spawn_choice >= 4.0 and spawn_choice < 5.0:
+	elif spawn_choice >= 4.0 and spawn_choice < 6.0:
 		spawn_item("gun")
 
 
 func get_random_gun() -> Node2D:
-	var ran = rand_range(0, Gunlist.gunlist.size() - 1)
+	var ran = GameData.random(0, Gunlist.gunlist.size() - 1)
 	return Gunlist.create_gun(Gunlist.gunlist[ran])

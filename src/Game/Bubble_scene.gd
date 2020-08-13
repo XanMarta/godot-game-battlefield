@@ -18,5 +18,8 @@ func spawn_bubble(item_name, item, pos):
 		new_bubble.set_item(item_name)
 	new_bubble.position = pos
 	add_child(new_bubble)
-	print("Spawn bubble: ", item_name)
+	if item_name == "gun":
+		print("Spawn bubble: ", item_name, " ", item.gun_name)
+	else:
+		print("Spawn bubble: ", item_name)
 
