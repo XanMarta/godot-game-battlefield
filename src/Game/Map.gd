@@ -2,6 +2,15 @@ extends Node2D
 
 
 var map_size = Vector2(31, 18)
+var ground = []
+
+
+func _ready():
+	var map = $Map.get_child(0).get_node("Block")
+	for x in range(map_size.x):
+		for y in range(map_size.y):
+			if map.get_cell(x, y) >= 0:
+				ground.push_back({"x": x, "y": y})
 
 
 
@@ -15,18 +24,13 @@ func end_game():
 
 func spawn_item(item_name):
 	var map = $Map.get_child(0).get_node("Block")
-	while true:
-		var spawn_cell = Vector2.ZERO
-		spawn_cell.x = rand_range(0, map_size.x)
-		spawn_cell.y = rand_range(0, map_size.y)
-		if map.get_cell(spawn_cell.x, spawn_cell.y) >= 0:
-			spawn_cell.y -= 1
-			var spawn_position = map.map_to_world(spawn_cell)
-			if item_name != "gun":
-				GameData.emit_signal("spawn_bubble", item_name, null, spawn_position)
-			else:
-				GameData.emit_signal("spawn_bubble", item_name, get_random_gun(), spawn_position)
-			break
+	var ran = rand_range(0, ground.size() - 1)
+	var spawn_cell = Vector2(ground[ran]["x"], ground[ran]["y"] - 1)
+	var spawn_position = map.map_to_world(spawn_cell)
+	if item_name != "gun":
+		GameData.emit_signal("spawn_bubble", item_name, null, spawn_position)
+	else:
+		GameData.emit_signal("spawn_bubble", item_name, get_random_gun(), spawn_position)
 
 
 
