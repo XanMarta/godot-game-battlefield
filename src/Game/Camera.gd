@@ -13,3 +13,4 @@ func _physics_process(delta):
 	position = new_pos
 	
 	$Screen.global_position = $Camera2D.get_camera_screen_center() - get_viewport().size / 2.0
+	

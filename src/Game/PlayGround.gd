@@ -3,6 +3,9 @@ extends Node2D
 
 export (PackedScene) var player_scene
 
+var is_running = false
+
+
 
 func init_player():
 	GameData.player = [null, null, null, null]
@@ -36,19 +39,22 @@ func _ready():
 
 func prepare_game():
 	$Actors.prepare_game()
-	$GameGUI.start()
+	$Screen/GameGUI.start()
 
 
 func start_game():
 	$Map.start_game()
 	$Actors.start_game()
+	is_running = true
 
 func end_game(winner):
-	$Map.end_game()
-	if winner != null:
-		$GameGUI.end(winner)
-	else:
-		$GameGUI.end();
+	if is_running:
+		$Map.end_game()
+		if winner != null:
+			$Screen/GameGUI.end(winner)
+		else:
+			$Screen/GameGUI.end()
+		is_running = false
 
 func quit_game():
 	get_tree().quit()

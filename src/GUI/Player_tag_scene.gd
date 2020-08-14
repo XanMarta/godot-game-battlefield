@@ -2,10 +2,6 @@ extends Node2D
 
 
 
-
-func _ready():
-	position.y = -get_viewport().size.y
-
-
 func connect_player(player, stack):
-	get_node("Player" + str(stack)).connect_player(player)
+	if stack >= 0 and stack <= 3:
+		get_node("Player" + str(stack)).connect_player(player)

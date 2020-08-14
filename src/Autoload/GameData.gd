@@ -11,13 +11,14 @@ var max_fall = 900
 var jump_power = 2
 var recoil_force = 5.0
 var player_health = 100
+var player_init_life = 1
 
 
 # Imported data ########################
 
 var player = []
 
-var player_life = 2
+
 
 
 func _ready():

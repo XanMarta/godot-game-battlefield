@@ -8,7 +8,7 @@ var remain_player = 0
 
 
 func prepare_game():
-	var player_tag = get_parent().get_node("Player_tag_scene")
+	var player_tag = get_parent().get_node("Screen/Player_tag_scene")
 	# Import player
 	for stack in GameData.player.size():
 		var player = GameData.player[stack]

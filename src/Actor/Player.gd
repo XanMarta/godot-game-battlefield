@@ -36,6 +36,7 @@ func init_player():
 	if init_gun_2 != "":
 		var new_gun = Gunlist.create_gun(init_gun_2)
 		gun_second.add_child(new_gun)
+	self.life = GameData.player_init_life
 	set_spawn_position()
 
 
