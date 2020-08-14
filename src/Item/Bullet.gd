@@ -3,9 +3,11 @@ extends KinematicBody2D
 
 export var velocity = Vector2(500, 0)
 
+
 var is_running = false
 var damage = 0
 var direction = 1.0
+var player_fire = null
 
 
 func fire(_direction : float, _damage : float):

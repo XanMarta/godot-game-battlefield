@@ -190,6 +190,8 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="BulletFire" type="Node2D" parent="."]
+
 [node name="smoke_jump" type="Sprite" parent="."]
 modulate = Color( 1, 1, 1, 0 )
 position = Vector2( 0, 10.3009 )
@@ -208,7 +210,14 @@ anims/dead = ExtResource( 8 )
 anims/hurt = SubResource( 3 )
 anims/jump = SubResource( 4 )
 anims/spawn = SubResource( 5 )
-[connection signal="body_entered" from="Player/BulletDetect" to="." method="_on_BulletDetect_body_entered"]
-[connection signal="body_entered" from="Player/DeadzoneDetect" to="." method="_on_DeadzoneDetect_body_entered"]
-[connection signal="area_entered" from="Player/BubbleDetect" to="." method="_on_BubbleDetect_area_entered"]
-[connection signal="area_exited" from="Player/BubbleDetect" to="." method="_on_BubbleDetect_area_exited"]
+
+[node name="Timer" type="Node2D" parent="."]
+
+[node name="Player_shot" type="Timer" parent="Timer"]
+wait_time = 2.0
+one_shot = true
+[connection signal="body_entered" from="Player/BulletDetect" to="." method="take_bullet"]
+[connection signal="body_entered" from="Player/DeadzoneDetect" to="." method="touch_deadzone"]
+[connection signal="area_entered" from="Player/BubbleDetect" to="." method="bubble_entered"]
+[connection signal="area_exited" from="Player/BubbleDetect" to="." method="bubble_exited"]
+[connection signal="timeout" from="Timer/Player_shot" to="." method="reset_player_shot"]

@@ -16,9 +16,10 @@ var init_gun_2 = "SR01"
 
 
 var is_alive = false
-var current_bubble = null
 var health = 100 setget set_health
 var life = 2 setget set_life
+var current_bubble = null
+var current_player_shot = null
 
 
 
@@ -56,9 +57,10 @@ func fire():
 		var gun = gun_hand.get_child(0)
 		if gun.fire():
 			var bullet = gun.get_bullet().instance()
-			add_child(bullet)
+			$BulletFire.add_child(bullet)
 			bullet.global_position = gun.get_node("Fire_position").global_position
 			bullet.fire($Player.direct, gun.damage)
+			bullet.player_fire = self
 			# Recoil
 			$Player.force += Vector2(-gun.recoil * $Player.direct, 0)
 			emit_signal("update_gui")
@@ -134,7 +136,7 @@ func spawn():
 	emit_signal("update_gui")
 
 
-func _on_BulletDetect_body_entered(bullet):
+func take_bullet(bullet):
 	$AnimationPlayer.stop(true)
 	$AnimationPlayer.play("hurt")
 	$Player.force += Vector2(bullet.damage * bullet.direction, 0)
@@ -145,6 +147,8 @@ func _on_BulletDetect_body_entered(bullet):
 	if health <= 0.0:
 		die()
 	emit_signal("update_gui")
+	current_player_shot = bullet.player_fire
+	$Timer/Player_shot.start()
 
 
 func die():
@@ -153,6 +157,10 @@ func die():
 	print("dead. Remain life: ", life)
 	emit_signal("update_gui")
 	$AnimationPlayer.play("dead")
+	if current_player_shot != null:
+		print(current_player_shot.player_name, " killed ", player_name)
+	else:
+		print(player_name, " committed suicide")
 	call_deferred("drop_all")
 	$Player/BulletDetect.set_deferred("monitoring", false)
 	yield($AnimationPlayer, "animation_finished")
@@ -179,11 +187,11 @@ func set_spawn_position():
 
 
 
-func _on_DeadzoneDetect_body_entered(body):
+func touch_deadzone(body):
 	die()
 
 
-func _on_BubbleDetect_area_entered(bubble):
+func bubble_entered(bubble):
 	# When bubble is gun
 	if bubble.get_parent().bubble_type == "gun":
 		if current_bubble != null:
@@ -211,7 +219,12 @@ func _on_BubbleDetect_area_entered(bubble):
 		new_bubble.take_bubble()
 
 
-func _on_BubbleDetect_area_exited(bubble):
+func bubble_exited(bubble):
 	if current_bubble == bubble.get_parent():
 		current_bubble.hide_name()
 		current_bubble = null
+
+
+func reset_player_shot():
+	current_player_shot = null
+
