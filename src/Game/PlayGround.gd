@@ -51,7 +51,7 @@ func end_game(winner):
 	if is_running:
 		$Map.end_game()
 		if winner != null:
-			$Screen/GameGUI.end(winner)
+			$Screen/GameGUI.end(winner + " WIN")
 		else:
 			$Screen/GameGUI.end()
 		is_running = false

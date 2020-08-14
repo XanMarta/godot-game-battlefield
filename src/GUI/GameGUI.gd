@@ -15,15 +15,18 @@ func start():
 	yield(get_tree().create_timer(1.0), "timeout")
 	$Label.show()
 	$Label.text = "START"
+	$Timer.start(60)
 	emit_signal("start_game")
 	yield(get_tree().create_timer(2.0), "timeout")
 	$Label.hide()
 
+
+
 func end(text = "END GAME"):
 	$Label.show()
-	if text != "END GAME":
-		text = text + " WIN"
 	$Label.text = text
 	yield(get_tree().create_timer(3.0), "timeout")
 	$Label.hide()
 	emit_signal("end_game")
+
+
