@@ -69,6 +69,7 @@ position = Vector2( 20.6672, -110.292 )
 [node name="gun" type="Sprite" parent="Gunhand"]
 
 [node name="Bullet" type="TextureProgress" parent="Gunhand"]
+visible = false
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -32.0799
@@ -89,6 +90,7 @@ scale = Vector2( 0.8, 0.8 )
 [node name="gun" type="Sprite" parent="Gunsecond"]
 
 [node name="Bullet" type="TextureProgress" parent="Gunsecond"]
+visible = false
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -32.0799
@@ -128,18 +130,22 @@ __meta__ = {
 [node name="Heart" type="Node2D" parent="."]
 
 [node name="heart1" type="Sprite" parent="Heart"]
+visible = false
 position = Vector2( -12.8041, -124.521 )
 texture = ExtResource( 7 )
 
 [node name="heart2" type="Sprite" parent="Heart"]
+visible = false
 position = Vector2( 10.5548, -124.521 )
 texture = ExtResource( 7 )
 
 [node name="heart3" type="Sprite" parent="Heart"]
+visible = false
 position = Vector2( 32.6843, -124.521 )
 texture = ExtResource( 7 )
 
 [node name="Label" type="Label" parent="Heart"]
+visible = false
 margin_left = 28.5777
 margin_top = -130.385
 margin_right = 56.5777

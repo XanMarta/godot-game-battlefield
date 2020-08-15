@@ -5,7 +5,6 @@ export (PackedScene) var player_scene
 
 
 var is_running = false
-var timing = 15
 
 
 func init_player():
@@ -41,7 +40,7 @@ func _ready():
 func prepare_game():
 	$Actors.prepare_game()
 	$Screen/GameGUI.start()
-	$Screen/GameGUI/Timer.set_time(timing)
+	$Screen/GameGUI/Timer.set_time(GameData.match_time)
 
 
 func start_game():

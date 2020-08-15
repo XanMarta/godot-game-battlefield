@@ -158,9 +158,9 @@ func die():
 	emit_signal("update_gui")
 	$AnimationPlayer.play("dead")
 	if current_player_shot != null:
-		print(current_player_shot.player_name, " killed ", player_name)
+		GameData.emit_signal("player_kill", current_player_shot.player_name, player_name)
 	else:
-		print(player_name, " committed suicide")
+		GameData.emit_signal("player_suicide", player_name)
 	call_deferred("drop_all")
 	$Player/BulletDetect.set_deferred("monitoring", false)
 	yield($AnimationPlayer, "animation_finished")

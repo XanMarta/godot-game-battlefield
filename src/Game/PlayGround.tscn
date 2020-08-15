@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://src/Background/Background.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/Map/Map1.tscn" type="PackedScene" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://src/Game/Bubble_scene.gd" type="Script" id=9]
 [ext_resource path="res://src/GUI/GameGUI.tscn" type="PackedScene" id=10]
 [ext_resource path="res://src/Game/PlayGround.gd" type="Script" id=11]
+[ext_resource path="res://src/GameElement/KillBarScene.tscn" type="PackedScene" id=12]
 
 [node name="PlayGround" type="Node2D"]
 script = ExtResource( 11 )
@@ -62,6 +63,8 @@ remote_path = NodePath("../../../Screen")
 [node name="Player_tag_scene" parent="Screen" instance=ExtResource( 5 )]
 
 [node name="GameGUI" parent="Screen" instance=ExtResource( 10 )]
+
+[node name="KillBarScene" parent="Screen" instance=ExtResource( 12 )]
 [connection signal="timeout" from="Map/ItemSpawn" to="Map" method="_on_ItemSpawn_timeout"]
 [connection signal="end_game" from="Actors" to="." method="end_game"]
 [connection signal="quit_game" from="Screen/GameGUI" to="." method="quit_game"]

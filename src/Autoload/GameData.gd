@@ -2,6 +2,8 @@ extends Node2D
 
 
 signal spawn_bubble(item_name, item, pos)
+signal player_kill(killer, victim)
+signal player_suicide(player)
 
 # Detached data ########################
 
@@ -11,7 +13,9 @@ var max_fall = 900
 var jump_power = 2
 var recoil_force = 5.0
 var player_health = 100
-var player_init_life = 1
+var player_init_life = 2
+
+var match_time = 30
 
 
 # Imported data ########################
