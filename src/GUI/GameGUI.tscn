@@ -20,4 +20,4 @@ __meta__ = {
 }
 
 [node name="Timer" parent="." instance=ExtResource( 2 )]
-[connection signal="time_out" from="Timer" to="." method="end" binds= [ "TIME OUT" ]]
+[connection signal="time_out" from="Timer" to="." method="time_out"]

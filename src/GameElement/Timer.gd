@@ -4,13 +4,17 @@ signal time_out
 
 
 
-var current_time = 120 setget update_time
+var current_time = 100 setget update_time
 
 
-func start(second = 120):
-	$Timer.start()
+func set_time(second):
 	$Timer_ray.max_value = second
 	self.current_time = second
+
+
+func start():
+	$Timer.start()
+	$Clock.show()
 
 
 func update_time(value):

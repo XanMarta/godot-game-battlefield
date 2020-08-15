@@ -64,5 +64,6 @@ remote_path = NodePath("../../../Screen")
 [node name="GameGUI" parent="Screen" instance=ExtResource( 10 )]
 [connection signal="timeout" from="Map/ItemSpawn" to="Map" method="_on_ItemSpawn_timeout"]
 [connection signal="end_game" from="Actors" to="." method="end_game"]
-[connection signal="end_game" from="Screen/GameGUI" to="." method="quit_game"]
+[connection signal="quit_game" from="Screen/GameGUI" to="." method="quit_game"]
 [connection signal="start_game" from="Screen/GameGUI" to="." method="start_game"]
+[connection signal="time_out" from="Screen/GameGUI" to="." method="time_out"]

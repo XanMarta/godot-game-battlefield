@@ -3,8 +3,9 @@ extends Node2D
 
 export (PackedScene) var player_scene
 
-var is_running = false
 
+var is_running = false
+var timing = 15
 
 
 func init_player():
@@ -40,6 +41,7 @@ func _ready():
 func prepare_game():
 	$Actors.prepare_game()
 	$Screen/GameGUI.start()
+	$Screen/GameGUI/Timer.set_time(timing)
 
 
 func start_game():
@@ -59,3 +61,5 @@ func end_game(winner):
 func quit_game():
 	get_tree().quit()
 
+func time_out():
+	is_running = false

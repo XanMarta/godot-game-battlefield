@@ -8,6 +8,7 @@
 script = ExtResource( 1 )
 
 [node name="Clock" type="Label" parent="."]
+visible = false
 margin_left = 488.844
 margin_top = 40.7352
 margin_right = 528.844
