@@ -5,7 +5,7 @@ export (PackedScene) var bullet_type
 export var gun_name = "Gun"
 export var recoil = 200
 export var damage = 1000
-export var fire_wait = 0.15
+export var firerate = 7
 
 
 var velocity = Vector2.ZERO
@@ -20,10 +20,10 @@ func set_gun(gun_code): # Spawn new gun by gun_code
 	gun_name = gun["name"]
 	recoil = gun["recoil"]
 	damage = gun["damage"]
-	fire_wait = gun["fire_wait"]
+	firerate = gun["firerate"]
 	capacity = gun["capacity"]
 	bullet = capacity
-	$Fire_rate.wait_time = fire_wait
+	$Fire_rate.wait_time = 1.0 / firerate
 
 
 func fill(all = true):

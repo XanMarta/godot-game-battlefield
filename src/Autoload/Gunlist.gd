@@ -18,7 +18,9 @@ func load_gunlist():
 		# Sniper riffe
 		"SR01",
 		# SMG
-		"SM01"
+		"SM01",
+		# Piston
+		"PT01"
 	]
 	
 	gun["AR01"] = {
@@ -26,7 +28,7 @@ func load_gunlist():
 		"name": "Assault Riffe",
 		"recoil": 200,
 		"damage": 1000,
-		"fire_wait": 0.15,
+		"firerate": 7,
 		"capacity": 100
 	}
 	
@@ -35,7 +37,7 @@ func load_gunlist():
 		"name": "Sniper Riffe",
 		"recoil": 5000,
 		"damage": 20000,
-		"fire_wait": 1.5,
+		"firerate": 0.6,
 		"capacity": 10
 	}
 	
@@ -44,8 +46,17 @@ func load_gunlist():
 		"name": "SMG",
 		"recoil": 100,
 		"damage": 500,
-		"fire_wait": 0.05,
+		"firerate": 20,
 		"capacity": 200
+	}
+	
+	gun["PT01"] = {
+		"code": "PT01",
+		"name": "Piston",
+		"recoil": 80,
+		"damage": 800,
+		"firerate": 4,
+		"capacity": 50
 	}
 
 

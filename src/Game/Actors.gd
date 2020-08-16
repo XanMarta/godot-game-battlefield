@@ -37,7 +37,7 @@ func player_die():
 	remain_player -= 1
 	if remain_player <= 1:
 		for player in get_children():
-			if player.is_alive:
+			if player.life > 0:
 				emit_signal("end_game", player.player_name)
 				return
 		emit_signal("end_game", null)

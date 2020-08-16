@@ -31,14 +31,18 @@ onready var gun_second = $Player/GunPosition/Gun_second
 func init_player():
 	$Player/sprite.texture = load("res://Assets/Player/Body/" + body + ".png")
 	$Player.control_type = self.control_type
+	equip_init_gun()
+	self.life = GameData.player_init_life
+	set_spawn_position()
+
+
+func equip_init_gun():
 	if init_gun_1 != "":
 		var new_gun = Gunlist.create_gun(init_gun_1)
 		gun_hand.add_child(new_gun)
 	if init_gun_2 != "":
 		var new_gun = Gunlist.create_gun(init_gun_2)
 		gun_second.add_child(new_gun)
-	self.life = GameData.player_init_life
-	set_spawn_position()
 
 
 func _physics_process(delta):
@@ -161,7 +165,9 @@ func die():
 		GameData.emit_signal("player_kill", current_player_shot.player_name, player_name)
 	else:
 		GameData.emit_signal("player_suicide", player_name)
-	call_deferred("drop_all")
+	if !GameData.keep_gun_after_death:	
+		call_deferred("drop_all")
+		call_deferred("equip_init_gun")
 	$Player/BulletDetect.set_deferred("monitoring", false)
 	yield($AnimationPlayer, "animation_finished")
 	set_spawn_position()
