@@ -28,8 +28,12 @@ onready var gun_hand = $Player/GunPosition/Gun_hand
 onready var gun_second = $Player/GunPosition/Gun_second
 
 
+func _ready():
+	$Player/Body.scale = GameData.scale_body
+
+
 func init_player():
-	$Player/sprite.texture = load("res://Assets/Player/Body/" + body + ".png")
+	$Player/Body.texture = load("res://Assets/Player/Body/" + body + ".png")
 	$Player.control_type = self.control_type
 	equip_init_gun()
 	self.life = GameData.player_init_life

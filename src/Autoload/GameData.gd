@@ -21,12 +21,12 @@ var match_time = 60
 
 var keep_gun_after_death = false
 
+# ########################
 
+var scale_body = Vector2(0.25, 0.25)
 
 
 # ########################
-
-
 
 func _ready():
 	randomize()

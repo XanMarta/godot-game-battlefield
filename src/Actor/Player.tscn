@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://src/Actor/Player.gd" type="Script" id=1]
 [ext_resource path="res://src/Actor/Player_movement.gd" type="Script" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://src/Item/Gun.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Assets/health_bar_red.png" type="Texture" id=5]
 [ext_resource path="res://Assets/health_bar_green.png" type="Texture" id=6]
+[ext_resource path="res://Assets/Player/Body/Blue.png" type="Texture" id=7]
 [ext_resource path="res://src/Actor/Player.anim" type="Animation" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -19,7 +20,7 @@ _data = {
 [sub_resource type="Animation" id=3]
 length = 0.4
 tracks/0/type = "value"
-tracks/0/path = NodePath("Player/sprite:modulate")
+tracks/0/path = NodePath("Player/Body:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -74,7 +75,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 1 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Player/sprite:position")
+tracks/1/path = NodePath("Player/Body:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -86,7 +87,7 @@ tracks/1/keys = {
 "values": [ Vector2( 0, -31.1928 ) ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Player/sprite:rotation_degrees")
+tracks/2/path = NodePath("Player/Body:rotation_degrees")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -98,7 +99,7 @@ tracks/2/keys = {
 "values": [ 0.0 ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("Player/sprite:modulate")
+tracks/3/path = NodePath("Player/Body:modulate")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -130,8 +131,10 @@ gun = ExtResource( 4 )
 collision_mask = 6
 script = ExtResource( 2 )
 
-[node name="sprite" type="Sprite" parent="Player"]
+[node name="Body" type="Sprite" parent="Player"]
 position = Vector2( 0, -31.1928 )
+scale = Vector2( 0.25, 0.25 )
+texture = ExtResource( 7 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 visible = false

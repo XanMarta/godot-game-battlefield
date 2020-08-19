@@ -56,10 +56,10 @@ func boost_speed():
 
 func turn(right : bool):
 	if right:
-		$sprite.flip_h = false
+		$Body.flip_h = false
 		direct = 1.0
 	else:
-		$sprite.flip_h = true
+		$Body.flip_h = true
 		direct = -1.0
 	turn_gun()
 

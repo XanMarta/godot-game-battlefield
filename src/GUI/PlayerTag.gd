@@ -3,6 +3,10 @@ extends Node2D
 var target = null
 
 
+func _ready():
+	$Player.scale = GameData.scale_body * Vector2(0.8, 0.8)
+
+
 func connect_player(player):
 	target = player
 	player.connect("update_gui", self, "update_gui")
@@ -13,7 +17,7 @@ func connect_player(player):
 
 func update_gui():
 	if target != null:
-		$Player/player.texture = target.get_node("Player").get_node("sprite").texture
+		$Player/player.texture = target.get_node("Player").get_node("Body").texture
 		var gun_slot = target.get_node("Player").get_node("GunPosition")
 		
 		if gun_slot.get_node("Gun_hand").get_child_count() > 0:
