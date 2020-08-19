@@ -14,10 +14,10 @@ func _ready():
 
 
 
-func start_game():
+func start():
 	$ItemSpawn.start()
 
-func end_game():
+func end():
 	$ItemSpawn.stop()
 
 
