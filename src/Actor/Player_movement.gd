@@ -57,9 +57,11 @@ func boost_speed():
 func turn(right : bool):
 	if right:
 		$Body.flip_h = false
+		$Hand.scale.x = 1.0
 		direct = 1.0
 	else:
 		$Body.flip_h = true
+		$Hand.scale.x = -1.0
 		direct = -1.0
 	turn_gun()
 

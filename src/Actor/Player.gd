@@ -61,7 +61,9 @@ func _physics_process(delta):
 
 
 func fire():
-	if gun_hand.get_child_count() > 0:
+	if gun_hand.get_child_count() == 0:
+		$Player/Hand/AnimationPlayer.play("punk")
+	else:
 		var gun = gun_hand.get_child(0)
 		if gun.fire():
 			var bullet = gun.get_bullet().instance()

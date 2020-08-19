@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://src/Actor/Player.gd" type="Script" id=1]
 [ext_resource path="res://src/Actor/Player_movement.gd" type="Script" id=2]
@@ -6,8 +6,37 @@
 [ext_resource path="res://src/Item/Gun.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Assets/health_bar_red.png" type="Texture" id=5]
 [ext_resource path="res://Assets/health_bar_green.png" type="Texture" id=6]
-[ext_resource path="res://Assets/Player/Body/Blue.png" type="Texture" id=7]
 [ext_resource path="res://src/Actor/Player.anim" type="Animation" id=8]
+[ext_resource path="res://Assets/Player/hand_front.png" type="Texture" id=9]
+[ext_resource path="res://Assets/Player/hand_behind.png" type="Texture" id=10]
+
+[sub_resource type="Animation" id=6]
+resource_name = "punk"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/path = NodePath("hand_front:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.2, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 6.89393, -22.6062 ), Vector2( 11.8953, -22.6062 ), Vector2( 6.89393, -22.6062 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("hand_behind:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 17.0331, -30.1833 ), Vector2( 21.5639, -30.1833 ), Vector2( 17.0331, -30.1833 ) ]
+}
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 17.1831, 31.0732 )
@@ -134,7 +163,21 @@ script = ExtResource( 2 )
 [node name="Body" type="Sprite" parent="Player"]
 position = Vector2( 0, -31.1928 )
 scale = Vector2( 0.25, 0.25 )
-texture = ExtResource( 7 )
+
+[node name="Hand" type="Node2D" parent="Player"]
+
+[node name="hand_front" type="Sprite" parent="Player/Hand"]
+position = Vector2( 6.89393, -22.6062 )
+scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 9 )
+
+[node name="hand_behind" type="Sprite" parent="Player/Hand"]
+position = Vector2( 17.0331, -30.1833 )
+scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 10 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Player/Hand"]
+anims/punk = SubResource( 6 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 visible = false
