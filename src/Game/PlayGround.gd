@@ -44,13 +44,13 @@ func prepare_game():
 
 
 func start_game():
-	$Map.start()
+	$Map.start_game()
 	$Actors.start_game()
 	is_running = true
 
 func end_game(winner):
 	if is_running:
-		$Map.end()
+		$Map.end_game()
 		if winner != null:
 			$Screen/GameGUI.end(winner + " WIN")
 		else:

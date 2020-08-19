@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/panel_right.png-2adcbecd015824f8538448e87d16572c.stex"
+path="res://.import/Prepare Scene.png-2e22be379ed3fe571d17fb61d8761924.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Scene/Prepare Scene/panel_right.png"
-dest_files=[ "res://.import/panel_right.png-2adcbecd015824f8538448e87d16572c.stex" ]
+source_file="res://Assets/Scene/Prepare Scene.png"
+dest_files=[ "res://.import/Prepare Scene.png-2e22be379ed3fe571d17fb61d8761924.stex" ]
 
 [params]
 
