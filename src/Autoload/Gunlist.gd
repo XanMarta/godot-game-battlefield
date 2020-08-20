@@ -3,8 +3,7 @@ extends Node2D
 
 export (PackedScene) var gun_scene
 
-var gun_directory = "res://Assets/Gunlist/"
-var gun_texture = {}    # Texture of gun
+
 var gunlist = []        # List of gun_code
 var gun = {}            # Info of gun
 
@@ -64,8 +63,7 @@ func load_gunlist():
 
 func _ready():
 	load_gunlist()
-	for gun_code in gunlist:
-		gun_texture[gun_code] = load(gun_directory + gun_code + ".png")
+
 
 func create_gun(gun_code) -> Node2D:
 	var new_gun = gun_scene.instance()

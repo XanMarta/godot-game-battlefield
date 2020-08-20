@@ -60,6 +60,7 @@ texture = ExtResource( 1 )
 
 [node name="Player" type="Position2D" parent="."]
 position = Vector2( -33.4997, -78.7438 )
+scale = Vector2( 0.2, 0.2 )
 
 [node name="player" type="Sprite" parent="Player"]
 
@@ -67,6 +68,7 @@ position = Vector2( -33.4997, -78.7438 )
 position = Vector2( 20.6672, -110.292 )
 
 [node name="gun" type="Sprite" parent="Gunhand"]
+scale = Vector2( 0.25, 0.25 )
 
 [node name="Bullet" type="TextureProgress" parent="Gunhand"]
 visible = false
@@ -88,6 +90,7 @@ position = Vector2( 14.7091, -71.1789 )
 scale = Vector2( 0.8, 0.8 )
 
 [node name="gun" type="Sprite" parent="Gunsecond"]
+scale = Vector2( 0.2, 0.2 )
 
 [node name="Bullet" type="TextureProgress" parent="Gunsecond"]
 visible = false

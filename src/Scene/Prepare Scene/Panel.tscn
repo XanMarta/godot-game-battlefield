@@ -1,8 +1,82 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Assets/Scene/Prepare Scene/panel_left.png" type="Texture" id=1]
+[ext_resource path="res://Assets/Scene/Prepare Scene/button_clothes.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Scene/Prepare Scene/button_gun.png" type="Texture" id=3]
+[ext_resource path="res://src/Scene/Prepare Scene/Panel.gd" type="Script" id=4]
+[ext_resource path="res://Assets/Scene/Prepare Scene/button_add.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Scene/Prepare Scene/button_remove.png" type="Texture" id=6]
+[ext_resource path="res://Assets/Gunlist/AR01.png" type="Texture" id=7]
+[ext_resource path="res://Assets/Player/Body/Blue.png" type="Texture" id=8]
 
 [node name="Panel" type="Node2D"]
+position = Vector2( 419.651, 356.244 )
+script = ExtResource( 4 )
+direction = "right"
 
 [node name="Image" type="Sprite" parent="."]
 texture = ExtResource( 1 )
+
+[node name="Button" type="Node2D" parent="."]
+visible = false
+position = Vector2( 113.13, -134.079 )
+
+[node name="Clothes" type="TextureButton" parent="Button"]
+margin_left = -36.8052
+margin_top = -81.8907
+margin_right = 560.195
+margin_bottom = 516.109
+rect_scale = Vector2( 0.12, 0.12 )
+texture_pressed = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Gun" type="TextureButton" parent="Button"]
+margin_left = -36.8052
+margin_top = 8.1394
+margin_right = 560.195
+margin_bottom = 606.139
+rect_scale = Vector2( 0.12, 0.12 )
+texture_pressed = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button_add" type="TextureButton" parent="."]
+margin_left = -57.9995
+margin_top = -351.847
+margin_right = 64.0005
+margin_bottom = -269.847
+texture_normal = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button_remove" type="TextureButton" parent="."]
+visible = false
+margin_left = -57.9995
+margin_top = -351.847
+margin_right = 64.0005
+margin_bottom = -269.847
+texture_normal = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Player" type="Node2D" parent="."]
+
+[node name="Body" type="Sprite" parent="Player"]
+position = Vector2( -15.7998, 2 )
+scale = Vector2( 0.8, 0.8 )
+texture = ExtResource( 8 )
+
+[node name="Hat" type="Sprite" parent="Player"]
+position = Vector2( -13.8598, -66.1065 )
+
+[node name="Gun" type="Sprite" parent="Player"]
+texture = ExtResource( 7 )
+[connection signal="pressed" from="Button/Clothes" to="." method="_on_Clothes_pressed"]
+[connection signal="pressed" from="Button/Gun" to="." method="_on_Gun_pressed"]
+[connection signal="button_down" from="Button_add" to="." method="_on_Button_add_button_down"]
+[connection signal="button_down" from="Button_remove" to="." method="_on_Button_remove_button_down"]

@@ -24,9 +24,10 @@ script = ExtResource( 2 )
 bullet_type = ExtResource( 3 )
 
 [node name="sprite" type="Sprite" parent="."]
+scale = Vector2( 0.25, 0.25 )
 
 [node name="Fire_position" type="Position2D" parent="."]
-position = Vector2( 25.3464, 0 )
+position = Vector2( 22.0839, 0 )
 
 [node name="Fire_rate" type="Timer" parent="."]
 wait_time = 0.2

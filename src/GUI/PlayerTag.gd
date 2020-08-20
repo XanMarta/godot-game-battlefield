@@ -3,8 +3,6 @@ extends Node2D
 var target = null
 
 
-func _ready():
-	$Player.scale = GameData.scale_body * Vector2(0.8, 0.8)
 
 
 func connect_player(player):
