@@ -1,5 +1,7 @@
 extends Node2D
 
+signal change_gun(gun)
+
 
 
 func _ready():
@@ -24,3 +26,9 @@ func item_selected(index):
 		$Info_gun/Recoil.text = ""
 		$Info_gun/Firerate.text = ""
 		$Info_gun/Capacity.text = ""
+	emit_signal("change_gun", gun)
+
+
+func exit_pressed():
+	print("Exit")
+	hide()

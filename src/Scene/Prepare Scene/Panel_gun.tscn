@@ -7,6 +7,15 @@
 position = Vector2( 488.638, 290.302 )
 script = ExtResource( 2 )
 
+[node name="Button_exit" type="Button" parent="."]
+margin_left = 170.0
+margin_top = -226.0
+margin_right = 204.0
+margin_bottom = -194.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Panel_gun" type="Sprite" parent="."]
 scale = Vector2( 0.535, 0.535 )
 texture = ExtResource( 1 )
@@ -70,4 +79,5 @@ margin_bottom = 200.906
 __meta__ = {
 "_edit_use_anchors_": false
 }
+[connection signal="pressed" from="Button_exit" to="." method="exit_pressed"]
 [connection signal="item_selected" from="Gunlist" to="." method="item_selected"]

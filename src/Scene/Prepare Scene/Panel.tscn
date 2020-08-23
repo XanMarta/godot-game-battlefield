@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Assets/Scene/Prepare Scene/panel_left.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Scene/Prepare Scene/button_clothes.png" type="Texture" id=2]
@@ -6,6 +6,8 @@
 [ext_resource path="res://src/Scene/Prepare Scene/Panel.gd" type="Script" id=4]
 [ext_resource path="res://Assets/Scene/Prepare Scene/button_add.png" type="Texture" id=5]
 [ext_resource path="res://Assets/Scene/Prepare Scene/button_remove.png" type="Texture" id=6]
+[ext_resource path="res://src/Scene/Prepare Scene/Panel_clothes.tscn" type="PackedScene" id=7]
+[ext_resource path="res://src/Scene/Prepare Scene/Panel_gun.tscn" type="PackedScene" id=8]
 
 [sub_resource type="Animation" id=1]
 resource_name = "appear"
@@ -38,7 +40,8 @@ tracks/0/keys = {
 }
 
 [node name="Panel" type="Node2D"]
-position = Vector2( 419.651, 356.244 )
+position = Vector2( 168.792, 307.356 )
+scale = Vector2( 0.6, 0.6 )
 script = ExtResource( 4 )
 
 [node name="Image" type="Sprite" parent="."]
@@ -100,7 +103,9 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Button_add" type="TextureButton" parent="."]
+[node name="Button_add" type="Node2D" parent="."]
+
+[node name="Button_add" type="TextureButton" parent="Button_add"]
 margin_left = -57.9995
 margin_top = -351.847
 margin_right = 64.0005
@@ -110,7 +115,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Button_remove" type="TextureButton" parent="."]
+[node name="Button_remove" type="TextureButton" parent="Button_add"]
 visible = false
 margin_left = -57.9995
 margin_top = -351.847
@@ -120,7 +125,20 @@ texture_normal = ExtResource( 6 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Clothes_Gun" type="Node2D" parent="."]
+position = Vector2( 658.638, 0 )
+
+[node name="Panel_clothes" parent="Clothes_Gun" instance=ExtResource( 7 )]
+visible = false
+scale = Vector2( 1.8, 1.8 )
+
+[node name="Panel_gun" parent="Clothes_Gun" instance=ExtResource( 8 )]
+visible = false
+position = Vector2( -6.10352e-05, -1.14276 )
+scale = Vector2( 1.8, 1.8 )
 [connection signal="pressed" from="Button/Clothes" to="." method="_on_Clothes_pressed"]
 [connection signal="pressed" from="Button/Gun" to="." method="_on_Gun_pressed"]
-[connection signal="button_down" from="Button_add" to="." method="_on_Button_add_button_down"]
-[connection signal="button_down" from="Button_remove" to="." method="_on_Button_remove_button_down"]
+[connection signal="button_down" from="Button_add/Button_add" to="." method="_on_Button_add_button_down"]
+[connection signal="button_down" from="Button_add/Button_remove" to="." method="_on_Button_remove_button_down"]
+[connection signal="change_clothes" from="Clothes_Gun/Panel_clothes" to="." method="change_clothes"]

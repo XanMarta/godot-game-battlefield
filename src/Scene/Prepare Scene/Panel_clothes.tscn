@@ -7,21 +7,22 @@
 script = ExtResource( 2 )
 
 [node name="Panel_clothes" type="Sprite" parent="."]
-position = Vector2( 496.71, 272.41 )
+position = Vector2( 0.709717, -12.4218 )
 scale = Vector2( 0.535433, 0.535433 )
 texture = ExtResource( 1 )
 
 [node name="Button_exit" type="Button" parent="."]
-margin_left = 672.0
-margin_top = 45.9217
-margin_right = 702.0
-margin_bottom = 74.9217
+margin_left = 176.0
+margin_top = -238.91
+margin_right = 206.0
+margin_bottom = -209.91
 custom_colors/font_color_pressed = Color( 1, 1, 1, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Pickup" type="Node2D" parent="."]
+position = Vector2( -496, -284.832 )
 
 [node name="Body" type="ItemList" parent="Pickup"]
 margin_left = 333.0
@@ -50,4 +51,5 @@ icon_scale = 0.25
 __meta__ = {
 "_edit_use_anchors_": false
 }
+[connection signal="pressed" from="Button_exit" to="." method="exit_pressed"]
 [connection signal="item_selected" from="Pickup/Body" to="." method="body_selected"]
