@@ -6,10 +6,13 @@ signal unfreeze
 
 export var direction = "left"
 
+
 var current_hat = ""
 var current_body = "Blue"
 var current_gun = "PT01"
+var current_name = ""
 
+var has_player = false
 
 
 func _ready():
@@ -58,6 +61,7 @@ func _on_Button_add_button_down():
 	$Button_add/Button_add.hide()
 	$Button.show()
 	$Slide/AnimationPlayer.play("disappear")
+	has_player = true
 
 func _on_Button_remove_button_down():
 	print("Button remove")
@@ -65,6 +69,7 @@ func _on_Button_remove_button_down():
 	$Button_add/Button_add.show()
 	$Button.hide()
 	$Slide/AnimationPlayer.play("appear")
+	has_player = false
 
 
 
@@ -86,3 +91,7 @@ func unfreeze(): # Call from outside
 	$Button.show()
 	$Button_add.show()
 
+
+
+func Name_changed():
+	current_name = $Player/Name.text

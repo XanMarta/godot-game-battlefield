@@ -7,37 +7,8 @@ export (PackedScene) var player_scene
 var is_running = false
 
 
-func init_player():
-	GameData.player = [null, null, null, null]
-	GameData.player[0] = {
-		"player_name" : "Mark",
-		"body" : "Blue",
-		"control_type" : "p1",
-		"init_gun_1" : "PT01",
-		"init_gun_2" : "SR01"
-	}
-	GameData.player[1] = {
-		"player_name" : "Daniel",
-		"body" : "Red",
-		"control_type" : "p2",
-		"init_gun_1" : "AR01",
-		"init_gun_2" : "SR01"
-	}
-	GameData.player[3] = {
-		"player_name" : "Markus",
-		"body" : "Red",
-		"control_type" : "p3",
-		"init_gun_1" : "SR01",
-		"init_gun_2" : "SR01"
-	}
-
 
 func _ready():
-	init_player()
-	prepare_game()
-
-
-func prepare_game():
 	$Actors.prepare_game()
 	$Screen/GameGUI.start()
 	$Screen/GameGUI/Timer.set_time(GameData.match_time)

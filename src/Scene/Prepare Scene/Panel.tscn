@@ -60,6 +60,15 @@ position = Vector2( -13.8598, -66.1065 )
 position = Vector2( 32.2002, 0 )
 scale = Vector2( 0.75, 0.75 )
 
+[node name="Name" type="TextEdit" parent="Player"]
+margin_left = -137.0
+margin_top = 149.0
+margin_right = 64.0
+margin_bottom = 189.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Slide" type="Node2D" parent="."]
 
 [node name="Image" type="TextureProgress" parent="Slide"]
@@ -138,6 +147,7 @@ scale = Vector2( 1.8, 1.8 )
 visible = false
 position = Vector2( -6.10352e-05, -1.14276 )
 scale = Vector2( 1.8, 1.8 )
+[connection signal="text_changed" from="Player/Name" to="." method="Name_changed"]
 [connection signal="pressed" from="Button/Clothes" to="." method="_on_Clothes_pressed"]
 [connection signal="pressed" from="Button/Gun" to="." method="_on_Gun_pressed"]
 [connection signal="button_down" from="Button_add/Button_add" to="." method="_on_Button_add_button_down"]
