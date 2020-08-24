@@ -67,6 +67,7 @@ margin_left = -193.5
 margin_top = -231.0
 margin_right = 194.5
 margin_bottom = 205.0
+mouse_filter = 2
 value = 100.0
 fill_mode = 3
 __meta__ = {
