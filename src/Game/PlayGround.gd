@@ -9,6 +9,9 @@ var is_running = false
 
 
 func _ready():
+	$AnimationPlayer.play("open")
+	yield($AnimationPlayer, "animation_finished")
+	
 	$Actors.prepare_game()
 	$Screen/GameGUI.start()
 	$Screen/GameGUI/Timer.set_time(GameData.match_time)

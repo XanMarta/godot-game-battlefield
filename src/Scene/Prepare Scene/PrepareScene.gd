@@ -42,4 +42,7 @@ func fight():
 			
 			GameData.player[current] = current_player
 	
+	$FightButton.hide()
+	$AnimationPlayer.play("close")
+	yield($AnimationPlayer, "animation_finished")
 	get_tree().change_scene_to(playground)

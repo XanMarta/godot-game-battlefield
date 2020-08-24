@@ -1,10 +1,52 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Assets/Scene/Prepare Scene/Prepare Scene.png" type="Texture" id=1]
 [ext_resource path="res://src/Scene/Prepare Scene/Panel.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Assets/Scene/Prepare Scene/Black_screen.png" type="Texture" id=3]
 [ext_resource path="res://src/Game/PlayGround.tscn" type="PackedScene" id=4]
 [ext_resource path="res://src/Scene/Prepare Scene/PrepareScene.gd" type="Script" id=5]
+[ext_resource path="res://Assets/Scene/Prepare Scene/Fighting.png" type="Texture" id=6]
+[ext_resource path="res://Assets/Scene/Prepare Scene/XAN.png" type="Texture" id=7]
+
+[sub_resource type="Animation" id=1]
+resource_name = "close"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Exit_screen/Fighting:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1.2 ),
+"transitions": PoolRealArray( 0.63728, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Exit_screen/XAN:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 507.487, 291.85 ), Vector2( 507.487, 165.85 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Exit_screen/XAN:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1.2 ),
+"transitions": PoolRealArray( 0.196146, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
 
 [node name="PrepareScene" type="Node2D"]
 script = ExtResource( 5 )
@@ -47,4 +89,21 @@ position = Vector2( 523.072, 321.841 )
 scale = Vector2( 0.667629, 0.713593 )
 z_index = 1
 texture = ExtResource( 3 )
+
+[node name="Exit_screen" type="Node2D" parent="."]
+
+[node name="Fighting" type="Sprite" parent="Exit_screen"]
+modulate = Color( 1, 1, 1, 0 )
+position = Vector2( 507.44, 301.722 )
+scale = Vector2( 0.653, 0.653 )
+texture = ExtResource( 6 )
+
+[node name="XAN" type="Sprite" parent="Exit_screen"]
+modulate = Color( 1, 1, 1, 0 )
+position = Vector2( 507.487, 291.85 )
+scale = Vector2( 0.653494, 0.653494 )
+texture = ExtResource( 7 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/close = SubResource( 1 )
 [connection signal="pressed" from="FightButton" to="." method="FightButton_pressed"]
