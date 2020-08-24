@@ -11,10 +11,10 @@ script = ExtResource( 5 )
 playground = ExtResource( 4 )
 
 [node name="FightButton" type="Button" parent="."]
-margin_left = 454.0
-margin_top = 503.0
-margin_right = 549.0
-margin_bottom = 593.0
+margin_left = 460.16
+margin_top = 502.602
+margin_right = 555.16
+margin_bottom = 592.602
 __meta__ = {
 "_edit_use_anchors_": false
 }

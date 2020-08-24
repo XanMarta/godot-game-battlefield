@@ -16,7 +16,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Battlefield"
-run/main_scene="res://src/Game/PlayGround.tscn"
+run/main_scene="res://src/Scene/Prepare Scene/PrepareScene.tscn"
 config/icon="res://icon.png"
 
 [autoload]

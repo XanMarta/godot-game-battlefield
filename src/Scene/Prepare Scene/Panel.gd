@@ -24,6 +24,7 @@ func _ready():
 		$Slide/Image.texture_progress = load("res://Assets/Scene/Prepare Scene/panel_empty_right.png")
 		$Button.position.x *= -1.0
 		$Player.scale.x *= -1.0
+		$Player_name.position.x *= -1.0
 		$Clothes_Gun.position.x *= -1.0
 	update()
 
@@ -94,4 +95,4 @@ func unfreeze(): # Call from outside
 
 
 func Name_changed():
-	current_name = $Player/Name.text
+	current_name = $Player_name/Name.text
