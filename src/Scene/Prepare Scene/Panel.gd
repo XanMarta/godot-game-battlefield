@@ -1,8 +1,10 @@
 extends Node2D
 
+signal freeze
+signal unfreeze
+
 
 export var direction = "left"
-
 
 var current_hat = ""
 var current_body = "Blue"
@@ -22,22 +24,31 @@ func _ready():
 		$Clothes_Gun.position.x *= -1.0
 	update()
 
-
 func update():
 	$Player/Body.texture = DataList.body_texture[current_body]
-	if current_gun != null:
+	if current_gun != "No gun":
 		$Player/Gun.texture = DataList.gun_texture[current_gun]
 	else:
 		$Player/Gun.texture = null
 
 
+
 func _on_Clothes_pressed():
 	print("Open clothes")
 	$Clothes_Gun/Panel_clothes.show()
-
+	z_index = 2
+	emit_signal("freeze")
 
 func _on_Gun_pressed():
 	print("Open gun")
+	$Clothes_Gun/Panel_gun.show()
+	z_index = 2
+	emit_signal("freeze")
+
+
+func close():
+	z_index = 0
+	emit_signal("unfreeze")
 
 
 
@@ -48,7 +59,6 @@ func _on_Button_add_button_down():
 	$Button.show()
 	$Slide/AnimationPlayer.play("disappear")
 
-
 func _on_Button_remove_button_down():
 	print("Button remove")
 	$Button_add/Button_remove.hide()
@@ -57,6 +67,22 @@ func _on_Button_remove_button_down():
 	$Slide/AnimationPlayer.play("appear")
 
 
+
 func change_clothes(body):
 	current_body = body
 	update()
+
+func change_gun(gun):
+	current_gun = gun
+	update()
+
+
+
+func freeze(): # Call from outside
+	$Button_add.hide()
+	$Button.hide()
+
+func unfreeze(): # Call from outside
+	$Button.show()
+	$Button_add.show()
+

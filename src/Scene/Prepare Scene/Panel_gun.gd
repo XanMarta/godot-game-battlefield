@@ -1,7 +1,7 @@
 extends Node2D
 
 signal change_gun(gun)
-
+signal close
 
 
 func _ready():
@@ -31,4 +31,5 @@ func item_selected(index):
 
 func exit_pressed():
 	print("Exit")
+	emit_signal("close")
 	hide()

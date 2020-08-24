@@ -40,7 +40,7 @@ tracks/0/keys = {
 }
 
 [node name="Panel" type="Node2D"]
-position = Vector2( 168.792, 307.356 )
+position = Vector2( 216.397, 291.499 )
 scale = Vector2( 0.6, 0.6 )
 script = ExtResource( 4 )
 
@@ -142,3 +142,6 @@ scale = Vector2( 1.8, 1.8 )
 [connection signal="button_down" from="Button_add/Button_add" to="." method="_on_Button_add_button_down"]
 [connection signal="button_down" from="Button_add/Button_remove" to="." method="_on_Button_remove_button_down"]
 [connection signal="change_clothes" from="Clothes_Gun/Panel_clothes" to="." method="change_clothes"]
+[connection signal="close" from="Clothes_Gun/Panel_clothes" to="." method="close"]
+[connection signal="change_gun" from="Clothes_Gun/Panel_gun" to="." method="change_gun"]
+[connection signal="close" from="Clothes_Gun/Panel_gun" to="." method="close"]
